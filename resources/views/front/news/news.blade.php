@@ -36,29 +36,139 @@
                 <!-- News section title -->
                 <h1 class="mb-0">News</h1>
             </div>
+           
             <div class="row g-5">
-                @foreach($news as $item)
-                <div class="col-lg-4 wow slideInUp">
+                <div class="col-lg-4">
+            <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
+                        <div class="section-title section-title-sm position-relative pb-3 mb-4">
+                            <h3 class="mb-0">Categories</h3>
+                        </div>
+                        <div class="link-animated d-flex flex-column justify-content-start">
+                            <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#workshop_news"><i class="bi bi-arrow-right me-2"></i>Workshops</a>
+                            <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#internship_news"><i class="bi bi-arrow-right me-2"></i>Internships</a>
+                            <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#program_news"><i class="bi bi-arrow-right me-2"></i>Programs</a>
+                            <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#fablab_news"><i class="bi bi-arrow-right me-2"></i>Achievements</a>
+                            <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#project_news"><i class="bi bi-arrow-right me-2"></i>Research Projects</a>
+                        </div>
+                    </div>
+            </div>
+                <div class="col-lg-8">
+                    <div class="row g-5" id="workshop_news">
+                @foreach($latestWorkshops as $workshop)
+                    
+                <div class="col-md-6 wow slideInUp" >
                     <div class="blog-item bg-light rounded overflow-hidden">
                         <div class="blog-img position-relative overflow-hidden">
                             <img class="img-fluid" src="{{asset('img/latestNews.jpg')}}" alt="">
+                            <span class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4">Workshops</span>
                         </div>
                         <div class="p-4">
                             <div class="d-flex mb-3">
-                                <small><i class="far fa-calendar-alt text-primary me-2"></i>{{ $item->updated_at->format('d M, Y') }}</small>
+                                <small><i class="far fa-calendar-alt text-primary me-2"></i>{{ $workshop->updated_at->format('d M, Y') }}</small>
                             </div>
-                            <h4 class="mb-3">{{ $item->title }}</h4>
-                            <p>{{ Str::limit($item->description, 100, '...') }}</p>
+                            <h4 class="mb-3">{{ $workshop->title }}</h4>
+                            <p>{{ Str::limit($workshop->description, 100, '...') }}</p>
                             <!-- Read more link -->
-                            <a class="text-uppercase" href="{{ route('front.news.showNews', ['news' => $item->slug]) }}">Read More <i class="bi bi-arrow-right"></i></a>
+                            <a class="text-uppercase" href="{{ route('front.news.showNews', ['slug' => $workshop->slug]) }}">Read More <i class="bi bi-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
                 @endforeach
-                <!-- Pagination -->
-                <div class="pagination">
-                    {{ $news->links('pagination::bootstrap-5') }}
+                    </div>
+            </div>
+                 
+            </div>
+            
+            <div class="row g-5" id="internship_news">
+                @foreach($latestInternships as $internship)
+                <div class="col-lg-4 wow slideInUp">
+                    <div class="blog-item bg-light rounded overflow-hidden">
+                        <div class="blog-img position-relative overflow-hidden">
+                            <img class="img-fluid" src="{{asset('img/latestNews.jpg')}}" alt="">
+                            <span class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4">Internships</span>
+                        </div>
+                        <div class="p-4">
+                            <div class="d-flex mb-3">
+                                <small><i class="far fa-calendar-alt text-primary me-2"></i>{{ $internship->updated_at->format('d M, Y') }}</small>
+                            </div>
+                            <h4 class="mb-3">{{ $internship->title }}</h4>
+                            <p>{{ Str::limit($internship->description, 100, '...') }}</p>
+                            <!-- Read more link -->
+                            <a class="text-uppercase" href="{{ route('front.news.showNews', ['slug' => $internship->slug]) }}">Read More <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
                 </div>
+                @endforeach
+               
+            </div>
+            
+            <div class="row g-5" id="program_news">
+                @foreach($latestPrograms as $program)
+                <div class="col-lg-4 wow slideInUp">
+                    <div class="blog-item bg-light rounded overflow-hidden">
+                        <div class="blog-img position-relative overflow-hidden">
+                            <img class="img-fluid" src="{{asset('img/latestNews.jpg')}}" alt="">
+                            <span class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4">Programs</span>
+                        </div>
+                        <div class="p-4">
+                            <div class="d-flex mb-3">
+                                <small><i class="far fa-calendar-alt text-primary me-2"></i>{{ $program->updated_at->format('d M, Y') }}</small>
+                            </div>
+                            <h4 class="mb-3">{{ $program->title }}</h4>
+                            <p>{{ Str::limit($program->description, 100, '...') }}</p>
+                            <!-- Read more link -->
+                            <a class="text-uppercase" href="{{ route('front.news.showNews', ['slug' => $program->slug]) }}">Read More <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+               
+            </div>
+            
+            <div class="row g-5" id="fablab_news">
+                @foreach($latestFablabs as $fablab)
+                <div class="col-lg-4 wow slideInUp">
+                    <div class="blog-item bg-light rounded overflow-hidden">
+                        <div class="blog-img position-relative overflow-hidden">
+                            <img class="img-fluid" src="{{asset('img/latestNews.jpg')}}" alt="">
+                            <span class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4">Achievements</span>
+                        </div>
+                        <div class="p-4">
+                            <div class="d-flex mb-3">
+                                <small><i class="far fa-calendar-alt text-primary me-2"></i>{{ $fablab->updated_at->format('d M, Y') }}</small>
+                            </div>
+                            <h4 class="mb-3">{{ $fablab->title }}</h4>
+                            <p>{{ Str::limit($fablab->description, 100, '...') }}</p>
+                            <!-- Read more link -->
+                            <a class="text-uppercase" href="{{ route('front.news.showNews', ['slug' => $fablab->slug]) }}">Read More <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+               
+            </div>
+            
+            <div class="row g-5" id="project_news">
+                @foreach($latestProjects as $project)
+                <div class="col-lg-4 wow slideInUp">
+                    <div class="blog-item bg-light rounded overflow-hidden">
+                        <div class="blog-img position-relative overflow-hidden">
+                            <img class="img-fluid" src="{{asset('img/latestNews.jpg')}}" alt="">
+                            <span class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4">Research Projects</span>
+                        </div>
+                        <div class="p-4">
+                            <div class="d-flex mb-3">
+                                <small><i class="far fa-calendar-alt text-primary me-2"></i>{{ $project->updated_at->format('d M, Y') }}</small>
+                            </div>
+                            <h4 class="mb-3">{{ $project->title }}</h4>
+                            <p>{{ Str::limit($project->description, 100, '...') }}</p>
+                            <!-- Read more link -->
+                            <a class="text-uppercase" href="{{ route('front.news.showNews', ['slug' => $project->slug]) }}">Read More <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+               
             </div>
         </div>
     </div>
@@ -72,41 +182,7 @@
     <!-- Include Scripts -->
     @include('front.partials.scripts')
 
-    <!-- AJAX script for pagination -->
-    <script>
-        $(document).ready(function() {
-            // Listen for click events on pagination links
-            $(document).on('click', '.pagination a', function(e) {
-                e.preventDefault();
-
-                // Get the href attribute of the clicked link
-                var pageUrl = $(this).attr('href');
-
-                // Make an AJAX request to get the next page content
-                $.ajax({
-                    url: pageUrl,
-                    type: 'get',
-                    dataType: 'html',
-                    success: function(response) {
-                        // Create a temporary container to hold the new content
-                        var tempContainer = $('<div>').html(response);
-
-                        // Extract the content of the news container from the response
-                        var newContent = tempContainer.find('#results-container').html();
-
-                        // Add a smooth fade-out animation to the news container
-                        $('#results-container').fadeOut(300, function() {
-                            // Replace the entire content of the news container with the new page content
-                            $(this).html(newContent);
-
-                            // Add a smooth fade-in animation to the news container
-                            $(this).fadeIn(300);
-                        });
-                    }
-                });
-            });
-        });
-    </script>
+    
 </body>
 
 </html>

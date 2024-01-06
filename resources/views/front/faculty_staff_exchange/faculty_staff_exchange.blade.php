@@ -142,6 +142,9 @@
                         </div>
                         @endif
                     </div>
+                    <div class="pagination">
+            {{ $filteredTeachers->appends(['university' => $university])->links('pagination::bootstrap-5') }}
+        </div>
                     @endif
                 </div>
             </div>

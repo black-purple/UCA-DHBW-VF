@@ -15,7 +15,7 @@
                 <div class="dropdown-menu m-0">
                     <a href="/exchange_students" class="dropdown-item">Exchange Students</a>
                     <a href="/faculty_staff_exchange" class="dropdown-item">Faculty and Staff Exchange</a>
-                    <a href="/internships" class="dropdown-item">Internships</a>
+                    <a href="/home_internships" class="dropdown-item">Internships</a>
                 </div>
             </div>
             <a href="/workshop" class="nav-item nav-link">Workshops</a>

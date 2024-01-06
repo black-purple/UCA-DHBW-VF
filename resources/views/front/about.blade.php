@@ -73,7 +73,7 @@
                         <!-- Team member information -->
                         <div class="text-center py-4">
                             <h4 class="text-primary">Maria Jaouar</h4>
-                            <p class="text-uppercase m-0">ISI Master Student</p>
+                            <p class="text-uppercase m-0 p2">ISI Master Student</p>
                         </div>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
                         <!-- Team member information -->
                         <div class="text-center py-4">
                             <h4 class="text-primary">Badr Azaou</h4>
-                            <p class="text-uppercase m-0">ISI Master Student</p>
+                            <p class="text-uppercase m-0 p2">ISI Master Student</p>
                         </div>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                         <!-- Team member information -->
                         <div class="text-center py-4">
                             <h4 class="text-primary">Haitam Chefira</h4>
-                            <p class="text-uppercase m-0">ISI Master Student</p>
+                            <p class="text-uppercase m-0 p2">ISI Master Student</p>
                         </div>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
                         <!-- Team member information -->
                         <div class="text-center py-4">
                             <h4 class="text-primary">Adil Ait Taleb</h4>
-                            <p class="text-uppercase m-0">ISI Master Student</p>
+                            <p class="text-uppercase m-0 p2">ISI Master Student</p>
                         </div>
                     </div>
                 </div>

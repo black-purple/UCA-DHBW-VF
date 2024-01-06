@@ -15,4 +15,6 @@ class Internship extends Model
     {
         return $this->belongsTo(Partner::class);
     }
+  
+
 }

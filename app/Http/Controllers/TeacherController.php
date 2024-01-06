@@ -84,7 +84,7 @@ class TeacherController extends Controller
         $filteredTeachers = null;
 
         if ($university) {
-            $filteredTeachers = Teacher::where('university', $university)->get();
+            $filteredTeachers = Teacher::where('university', $university)->paginate(9);
         }
 
         // Return a JSON response for AJAX requests

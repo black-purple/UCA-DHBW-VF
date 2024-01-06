@@ -54,7 +54,7 @@
         </div>
 
         @foreach($fablabs as $fablab)
-        <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        
             <div class="container py-5">
                 <div class="row g-5">
                     <div class="col-lg-7">
@@ -67,8 +67,8 @@
                             <img class=" w-100 h-100 rounded wow zoomIn img-fluid" data-wow-delay="0.9s" src="{{ asset('img/IMG_0310.JPG') }}" style="object-fit: contain; ">
                         </div>
                     </div>
-                </div><br><br>
-            </div>
+                </div>
+            
         </div>
         @endforeach
 

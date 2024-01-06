@@ -120,7 +120,7 @@ class WorkshopController extends Controller
         if ($year) {
             $filteredWorkshops = Workshop::whereYear('date_start', $year)
                 ->orWhereYear('date_end', $year)
-                ->get();
+                ->paginate(3);
         }
 
         // Return a JSON response for AJAX requests

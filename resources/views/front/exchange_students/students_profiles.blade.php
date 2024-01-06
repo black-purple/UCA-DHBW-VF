@@ -67,40 +67,60 @@
 
     <!-- Results section -->
     <div id="results-container" class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container py-5">
-            <div class="row g-5">
-                <!-- Display filtered students -->
-                @if (isset($filteredStudents))
+    <div class="container py-5">
+        <div class="row g-5">
+            <!-- Display filtered students -->
+            @if (isset($filteredStudents))
                 <center>
                     <h2 class="fw-bold text-primary text-uppercase">Filtered Students for {{ $university }}</h2>
                 </center>
                 <div id="results" class="box_filter mt-3 text-center">
                     @if($filteredStudents->isEmpty())
-                    <p>No Students found for the university.</p>
+                        <p>No Students found for the university.</p>
                     @else
-                    <div class="row g-5">
-                        <!-- Loop through filtered students -->
-                        @foreach ($filteredStudents as $student)
-                        <div class="col-lg-4 wow slideInUp" data-wow-delay="0.3s">
-                            <div class="team-item bg-light rounded overflow-hidden">
-                                <div class="team-img position-relative overflow-hidden">
-                                    <img class="img-fluid w-100" src="{{asset('img/user.png')}}" alt="">
+                        <div class="row g-5">
+                            <!-- Loop through filtered students -->
+                            @foreach ($filteredStudents as $student)
+                                <div class="col-lg-4 wow slideInUp" data-wow-delay="0.3s">
+                                    <div class="team-item bg-light rounded overflow-hidden">
+                                        <div class="team-img position-relative overflow-hidden">
+                                            <img class="img-fluid w-100" src="{{asset('img/user.png')}}" alt="">
+                                            <div class="team-social">
+                                                <!-- Social links -->
+                                                <a class="btn btn-lg btn-primary btn-lg-square rounded" href="mailto:{{$student->email_student}}" target="_blank">
+                                                    <i class="fa-regular fa-envelope"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="text-center py-4">
+                                            <h4 class="text-primary">{{$student->firstname}} {{$student->lastname}}</h4>
+                                            <p class="text-uppercase m-0 p2">
+                                                <h6 class="text-primary text-uppercase">Internship  </h6>
+                                            <small><i class="far fa-calendar-alt text-primary me-2"></i>{{date('M d, Y', strtotime(optional($student->internship)->date_start ))}}-{{date('M d, Y', strtotime(optional($student->internship)->date_end))}}</small><br>
+                                                &nbsp;{{ optional($student->internship)->title ?? 'No Internship Title' }}
+                                            </p>
+                                        <p class="text-uppercase m-0 p2">
+                                                <h6 class="text-primary text-uppercase">Exchange </h6>
+                                        <small><i class="far fa-calendar-alt text-primary me-2"></i>{{date('M d, Y', strtotime(optional($student->exchange)->date_start ))}}-{{date('M d, Y', strtotime(optional($student->exchange)->date_end))}}</small><br>
+                                                &nbsp;{{ optional($student->exchange)->type ?? 'No Exchange type' }}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="text-center py-4">
-                                    <h4 class="text-primary">{{$student->firstname}} {{$student->lastname}}</h4>
-                                    <p class="text-uppercase m-0"><i class='fas fa-passport' style='color:#800000'></i>&nbsp;{{$student->nationality}}</p>
-                                    <p class="text-uppercase m-0"><i class='fas fa-envelope-open' style='color:#800000'></i>&nbsp;{{$student->email_student}}</p>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
-                        @endforeach
-                    </div>
                     @endif
                 </div>
-                @endif
-            </div>
+        <div class="pagination">
+            {{ $filteredStudents->appends(['university' => $university])->links('pagination::bootstrap-5') }}
         </div>
+            @endif
+        </div>
+    
     </div>
+     
+</div>
+
 
     <!-- Footer section -->
     @include('front.partials.footer')
@@ -144,6 +164,9 @@
             });
         });
     </script>
+
+
+
 
 </body>
 

@@ -37,7 +37,7 @@
                 <h5 class="fw-bold text-primary text-uppercase">Partners</h5>
                 <h1 class="mb-0">Meet Our Partners </h1>
             </div>
-            <div class="row g-5">
+            <div class="row g-5"  id="results-container">
                 <p class="mb-4 p-size">The purpose of this cooperation between these two universities is to collaborate
                     with several companies in different fields to create opportunities for students to explore the
                     professional universe.<br>Working and studying abroad are key elements that can enhance a
@@ -47,15 +47,8 @@
                     experimentation.<br>We collaborate with businesses and organisations from all sectors. Our business
                     development team will work with you to match your needs to our academics expertise and manage the
                     contracts and IP, as well as advising on funding opportunities.</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="results-container" class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container py-5">
-            <div class="row g-5">
-                @foreach($partners as $partner)
-                <div class="col-lg-4 col-md-6 col-sm-12 wow slideInUp" data-wow-delay="0.3s">
+                 @foreach($partners as $partner)
+                <div class="col-lg-4 col-md-6 col-sm-12 wow slideInUp " data-wow-delay="0.3s" >
                     <div class="blog-item bg-light rounded overflow-hidden">
                         <div class="blog-img position-relative overflow-hidden">
                             <img class="img-fluid" src="{{ asset('img/uca_logo.png') }}" alt="">
@@ -78,6 +71,14 @@
                 <div class="pagination">
                     {{ $partners->links('pagination::bootstrap-5') }}
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="results-container" class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+               
             </div>
         </div>
     </div>

@@ -107,7 +107,13 @@
                                     <i class="far fa-calendar-alt text-primary me-2"></i>{{ $program->updated_at->format('d M, Y') }}
                                     <br>
                                     <i class='fas fa-clock' style='color:#800000'></i>&nbsp;&nbsp;{{ $program->NB_hours }}<br><br>
-                                    <p>{{ $program->description }}</p>
+                                    <h6 data-bs-toggle="collapse" data-bs-target="#workshopDescription" aria-expanded="false" aria-controls="workshopDescription" class="text-primary text-uppercase" style="cursor: pointer;">
+        DESCRIPTION
+    </h6>
+    <div id="workshopDescription" class="collapse" style="text-align : justify; margin : 20px;">
+        <!-- Content to be collapsed -->
+        {{ $program->description }}
+    </div>
                                 </div>
                             </div>
                             @endforeach

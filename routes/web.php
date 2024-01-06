@@ -37,7 +37,7 @@ Route::get('/',[HomeController::class, 'index']);
 Route::get('/exchange_students',[HomeController::class, 'exchange_students']);
 Route::get('/students_profiles',[HomeController::class, 'students_profiles']);
 Route::get('/faculty_staff_exchange',[HomeController::class, 'faculty_staff_exchange']);
-Route::get('/internships',[HomeController::class, 'internships']);
+Route::get('/home_internships',[HomeController::class, 'internships']);
 Route::get('/workshop',[HomeController::class, 'workshop']);
 Route::get('/research_projects',[HomeController::class, 'research_projects']);
 Route::get('/program',[HomeController::class, 'program']);
@@ -45,12 +45,11 @@ Route::get('/academic_programs',[HomeController::class, 'academic_programs']);
 Route::get('/cultural_programs',[HomeController::class, 'cultural_programs']);
 Route::get('/achievements',[HomeController::class, 'achievements']);
 Route::get('/partners',[HomeController::class, 'partners']);
-// Route::get('/login',[HomeController::class, 'login']);
 Route::get('/about',[HomeController::class, 'about']);
 Route::get('/news',[HomeController::class, 'news']);
 
 //Internships Controller : Front Office
-Route::get('/internships', [InternshipController::class, 'filterInternships'])->name('internships');
+Route::get('/home_internships', [InternshipController::class, 'filterInternships'])->name('internships');
 
 //Students Controller : Front Office
 Route::get('/students_profiles', [StudentController::class, 'filterStudents'])->name('students_profiles');
@@ -64,7 +63,7 @@ Route::get('/workshop', [WorkshopController::class, 'filterWorkshop'])->name('wo
 //News Controller : Front Office
 Route::get('/news', [NewsController::class, 'displayNews'])->name('front.news.news');
 Route::get('/', [NewsController::class, 'index'])->name('front.index');
-Route::get('/news/{news:slug}', [NewsController::class, 'showNews'])->name('front.news.showNews');
+Route::get('/news/{slug}', [NewsController::class, 'showNews'])->name('front.news.showNews');
 
 //Partners Controller : Front Office
 Route::get('/partners', [PartnerController::class, 'showPartners'])->name('front.partners.partners');

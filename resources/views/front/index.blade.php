@@ -14,29 +14,34 @@
     <!-- Navbar section -->
     <div class="container-fluid position-relative p-0">
         @include('front.partials.navbar')
+        
         <div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img class="w-100" src="{{asset('img/IMG_0716.JPG')}}" alt="Image">
+                    <img class="w-100" src="{{asset('img/IMG_0716.JPG')}}" alt="Image" style="height:650px;">
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                        <div class="p-3" style="max-width: 900px;">
+                        <div class="p-3" style="max-width: 900px;"><br><br>
                             <h5 class="text-white text-uppercase mb-3 animated slideInDown">The International Collaboration of</h5>
                             <h1 class="display-1 text-white mb-md-4 animated zoomIn">UCA & DHBW</h1>
                             <a href="/about" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">About Us</a>
                             <a href="/news" class="btn btn-outline-light py-md-3 px-md-5 animated slideInRight">News</a>
                         </div>
+                         
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img class="w-100" src="{{asset('img/IMG_0800.JPG')}}" alt="Image">
+                    <img class="w-100" src="{{asset('img/IMG_0800.JPG')}}" alt="Image" style="height:650px;" >
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                        <div class="p-3" style="max-width: 900px;">
+                        <div class="p-3" style="max-width: 900px;"><br><br>
                             <h5 class="text-white text-uppercase mb-3 animated slideInDown">The International Collaboration of</h5>
                             <h1 class="display-1 text-white mb-md-4 animated zoomIn">UCA & DHBW</h1>
                             <a href="/about" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">About Us</a>
                             <a href="/news" class="btn btn-outline-light py-md-3 px-md-5 animated slideInRight">News</a>
                         </div>
+                        
+                       
                     </div>
+                     
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel" data-bs-slide="prev">
@@ -54,8 +59,9 @@
     @include('front.partials.screen_search')
    
     <!-- Facts Section -->
-    <div class="container-fluid facts py-5 pt-lg-0">
-        <div class="container py-5 pt-lg-0">
+ 
+    <div class="container-fluid facts py-5 pt-lg-1">
+        <div class="container py-5">
             <div class="row gx-0">
                 <div class="col-lg-4 wow zoomIn" data-wow-delay="0.1s">
                     <div class="bg-primary shadow d-flex align-items-center justify-content-center p-4" style="height: 150px;">
@@ -100,7 +106,7 @@
             <div class="row g-5">
                 <div class="col-lg-7">
                     <div class="section-title position-relative pb-3 mb-5">
-                        <h1 class="mb-0">THE INTERNATIONAL COOPERATION OF UCA&DHBW</h1>
+                        <h1 class="mb-0" id="international_cooperation">THE INTERNATIONAL COOPERATION OF UCA&DHBW</h1>
                     </div>
                     <p class="mb-4">Apart from international cooperation co-ordinated by specific and externally funded programs, UCA university maintains a number of relationships with national and international universities and institutions. By doing so, and through the signature of cooperation agreements, the UCA aims to develop joint research projects, educational activities, and the exchange between professors and students. Ultimately, Baden-Württemberg Cooperative State University (DHBW) and Cadi Ayyad University (UCA), have entered into a general agreement to foster international cooperation in education and research and also facilitate educational exchanges between the two universities. This was driven by the need to offer international experiences to students, faculty, and staff, and to strengthen the existing cultural and educational links between the two institutions. The two universities agreed on a productive and positive long term cooperative relationship where they both consent to:
                     </p>
@@ -128,7 +134,7 @@
     <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container py-5">
             <div class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 600px;">
-                <h5 class="fw-bold text-primary text-uppercase">Success Story</h5>
+                <h5 class="fw-bold text-primary text-uppercase" id="success_story">Success Story</h5>
                 <h1 class="mb-0">Advancing Sustainable Solutions</h1>
             </div>
             <div class="row g-5">
@@ -170,7 +176,7 @@
     <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container py-5">
             <div class="section-title text-center position-relative pb-3 mb-4 mx-auto" style="max-width: 600px;">
-                <h5 class="fw-bold text-primary text-uppercase">Testimonial</h5>
+                <h5 class="fw-bold text-primary text-uppercase" id="testimonial">Testimonial</h5>
                 <h1 class="mb-0">Student Experiences and University Perspectives</h1>
             </div>
             <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.6s">
@@ -182,7 +188,7 @@
                             <small class="text-uppercase">Former UCA Professor</small>
                         </div>
                     </div>
-                    <div class="pt-4 pb-5 px-5">UCA-DHBW exchange: Expanded academics, global perspective through research, mentorship shaped career goals. Grateful for lasting friendships and international network gained.
+                    <div class="pt-4 pb-5 px-5 p">UCA-DHBW exchange: Expanded academics, global perspective through research, mentorship shaped career goals. Grateful for lasting friendships and international network gained.
                     </div>
                 </div>
                 <div class="testimonial-item bg-light my-4">
@@ -193,7 +199,7 @@
                             <small class="text-uppercase">UCA Professor</small>
                         </div>
                     </div>
-                    <div class="pt-4 pb-5 px-5">DHBW faculty collaborating with UCA, fostering innovation, enhancing networks, and teaching methods. A rewarding journey of mutual learning and cultural exchange
+                    <div class="pt-4 pb-5 px-5 p">DHBW faculty collaborating with UCA, fostering innovation, enhancing networks, and teaching methods. A rewarding journey of mutual learning and cultural exchange
                     </div>
                 </div>
                 <div class="testimonial-item bg-light my-4">
@@ -204,7 +210,7 @@
                             <small class="text-uppercase">UCA Graduate</small>
                         </div>
                     </div>
-                    <div class="pt-4 pb-5 px-5">UCA-DHBW collaboration transformed my academic journey, shaping my global career. Proud alum of institutions prioritizing enriching collaborations
+                    <div class="pt-4 pb-5 px-5 p">UCA-DHBW collaboration transformed my academic journey, shaping my global career. Proud alum of institutions prioritizing enriching collaborations
                     </div>
                 </div>
                 <div class="testimonial-item bg-light my-4">
@@ -215,7 +221,7 @@
                             <small class="text-uppercase">UCA Graduate</small>
                         </div>
                     </div>
-                    <div class="pt-4 pb-5 px-5">UCA-DHBW collaboration shaped my computer science journey, exposing me to cutting-edge research and fostering diverse collaboration. Grateful for lasting connections and mentorship.
+                    <div class="pt-4 pb-5 px-5 p">UCA-DHBW collaboration shaped my computer science journey, exposing me to cutting-edge research and fostering diverse collaboration. Grateful for lasting connections and mentorship.
                     </div>
                 </div>
             </div>
@@ -226,23 +232,38 @@
     <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container py-5">
             <div class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 600px;">
-                <h5 class="fw-bold text-primary text-uppercase">Latest News</h5>
+                <h5 class="fw-bold text-primary text-uppercase" id="latest_news">Latest News</h5>
                 <h1 class="mb-0">Explore Insights and Collaborative Endeavors</h1>
             </div>
             <div class="row g-5">
-                @foreach($news as $item)
+                @foreach($latestRecords as $item)
                 <div class="col-lg-4 wow slideInUp" data-wow-delay="0.3s">
                     <div class="blog-item bg-light rounded overflow-hidden">
                         <div class="blog-img position-relative overflow-hidden">
-                            <img class="img-fluid" src="{{asset('img/latestNews.jpg')}}" alt="">
+                            <img class="img-fluid" src="{{asset('img/internships.jpg')}}" alt="">
+                             @if($item instanceof \App\Models\Workshop)
+                            <span class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4">Workshops</span>
+                            @elseif($item instanceof \App\Models\Project)
+                            <span class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4">Research Projects</span>
+                            @elseif($item instanceof \App\Models\Internship)
+                            <span class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4">Internships</span>
+                            @elseif($item instanceof \App\Models\Program)
+                            <span class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4">Programs</span>
+                            @elseif($item instanceof \App\Models\Fablab)
+                            <span class="position-absolute top-0 start-0 bg-primary text-white rounded-end mt-5 py-2 px-4">Achievements</span>
+                        @endif
                         </div>
                         <div class="p-4">
                             <div class="d-flex mb-3">
                                 <small><i class="far fa-calendar-alt text-primary me-2"></i>{{ $item->updated_at->format('d M, Y') }}</small>
                             </div>
-                            <h4 class="mb-3">{{ $item->title }}</h4>
+                              <h4 class="mb-3">
+                       
+                        {{ $item->title }}
+                    </h4>
                             <p>{{ Str::limit($item->description, 100, '...') }}</p>
-                            <a class="text-uppercase" href="{{ route('front.news.showNews', ['news' => $item->slug]) }}">Read More <i class="bi bi-arrow-right"></i></a>
+                            <a class="text-uppercase" href="{{ route('front.news.showNews', ['slug' => $item->slug]) }}">Read More <i class="bi bi-arrow-right"></i></a>
+
                         </div>
                     </div>
                 </div>
@@ -250,6 +271,7 @@
             </div>
         </div>
     </div>
+       
     
     <!-- Footer Section -->
     @include('front.partials.footer')

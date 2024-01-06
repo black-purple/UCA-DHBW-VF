@@ -3,6 +3,7 @@
 // App\Http\Controllers\YourController.php
 
 namespace App\Http\Controllers;
+use Illuminate\Pagination\Paginator;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -87,17 +88,21 @@ class StudentController extends Controller
     {
         // Get all students
         $students = Student::all();
-
+        
         // Get unique universities
         $universities = Student::select('university')->distinct()->pluck('university');
 
         // If the university parameter is provided, filter students
         $university = $request->input('university');
         $filteredStudents = null;
+       
 
         if ($university) {
-            $filteredStudents = Student::where('university', $university)->get();
+            $filteredStudents = Student::with('internship') // Eager loading
+            ->where('university', $university)
+            ->paginate(9);
         }
+        
 
         // Return a JSON response for AJAX requests
         if ($request->ajax()) {

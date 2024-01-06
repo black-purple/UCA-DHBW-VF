@@ -28,7 +28,7 @@ class HomeController extends Controller
         return view('front.research_projects.research_projects');
     }
     public function program(){
-        return view('front.program');
+        return view('front.programs.program');
     }
     public function academic_programs(){
         return view('front.academic_programs.academic_programs');

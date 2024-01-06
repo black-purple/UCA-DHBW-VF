@@ -76,17 +76,17 @@ class InternshipController extends Controller
         if ($year) {
             $filteredInternships = Internship::whereYear('date_start', $year)
                 ->orWhereYear('date_end', $year)
-                ->get();
+                ->paginate(3);
         }
 
         // Return a JSON response for AJAX requests
         if ($request->ajax()) {
-            $html = view('front.internships.internships', compact('internships', 'years', 'filteredInternships', 'year'))->render();
+            $html = view('front.internships.home_internships', compact('internships', 'years', 'filteredInternships', 'year'))->render();
             return response()->json(['html' => $html]);
         }
 
         // Pass data to the view
-        return view('front.internships.internships', compact('internships', 'years', 'filteredInternships', 'year'));
+        return view('front.internships.home_internships', compact('internships', 'years', 'filteredInternships', 'year'));
     }
 
 }

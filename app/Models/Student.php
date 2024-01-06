@@ -30,4 +30,5 @@ class Student extends Model
     {
         return $this->belongsTo(Internship::class, 'internship_id');
     }
+   
 }

@@ -94,10 +94,20 @@
                                 <div class="col-lg-7 order-md-1">
                                     <h3>{{ $workshop->title }}</h3>
                                     <br>
-                                    <i class="far fa-calendar-alt text-primary me-2"></i>{{ $workshop->date_start }} - {{ $workshop->date_end }}
+                                    <i class="far fa-calendar-alt text-primary me-2"></i>{{date('M d, Y', strtotime($workshop->date_start))}} - {{date('M d, Y', strtotime($workshop->date_end)) }}
                                     <br>
                                     <i class='fas fa-university' style='color:#800000'></i>&nbsp;&nbsp;{{ $workshop->university }}<br><br>
-                                    <p>{{ $workshop->description }}</p>
+                                    <h6 class="text-primary text-uppercase" style="display: inline;">OBJECTIVE : </h6>{{$workshop->objective}}<br><br>
+                                    <div>
+    <h6 data-bs-toggle="collapse" data-bs-target="#workshopDescription" aria-expanded="false" aria-controls="workshopDescription" class="text-primary text-uppercase" style="cursor: pointer;">
+        DESCRIPTION
+    </h6>
+    <div id="workshopDescription" class="collapse" style="text-align : justify; margin : 20px;">
+        <!-- Content to be collapsed -->
+        {{ $workshop->description }}
+    </div>
+</div>
+
                                 </div>
                             </div>
                             @endforeach
@@ -105,6 +115,9 @@
                         @endif
                     </div>
                 </div>
+                <div class="pagination">
+            {{ $filteredWorkshops->appends(['year' => $year])->links('pagination::bootstrap-5') }}
+        </div>
                 @endif
             </div>
         </div>
