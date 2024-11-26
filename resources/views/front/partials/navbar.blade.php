@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-md navbar-dark px-5 py-2 py-lg-0">
+<nav class="navbar navbar-expand-md navbar-dark px-2 py-2 py-lg-0">
     <a href="/" class="navbar-brand p-0">
         <div class="logo">
-            <img src="{{asset('img/uca_logo.png')}}" alt="UCA Logo" class="img-fluid"><img src="{{asset('img/dhbw_logo.png')}}" alt="DHBW Logo" class="img-fluid">
+            <img src="{{asset('img/uca_logo.png')}}" alt="UCA Logo" class="img-fluid m-0 p-0"><img src="{{asset('img/dhbw_logo.png')}}" alt="DHBW Logo" class="img-fluid m-0 p-0">
         </div>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -15,7 +15,7 @@
                 <div class="dropdown-menu m-0">
                     <a href="/exchange_students" class="dropdown-item">Exchange Students</a>
                     <a href="/faculty_staff_exchange" class="dropdown-item">Faculty and Staff Exchange</a>
-                    <a href="/home_internships" class="dropdown-item">Internships</a>
+                    <a href="/home-internships" class="dropdown-item">Internships</a>
                 </div>
             </div>
             <a href="/workshop" class="nav-item nav-link">Workshops</a>
@@ -107,16 +107,37 @@
         });
 
         function displaySearchResults(results) {
-            var container = $('#search-results-container');
-            container.empty();
+    var container = $('#search-results-container');
+    container.empty();
 
-            if (results.length > 0) {
-                results.forEach(function(result) {
-                    // Adjust the logic based on the structure of your results
-                    container.append('<h6>' + result.title + ' </h6><p> ' + result.description + '</p>');
-                });
-            } else {
-                container.append('<p>No results found.</p>');
+    if (results.length > 0) {
+        results.forEach(function(result) {
+            // Adjust the logic based on the structure of your results
+            var link = getLink(result);
+            container.append('<h6 class="text-primary text-uppercase">' + result.title + '</h6><p>' + result.description + '</p><p><a href="' + link + '">Read more</a></p>'+'<hr>');
+        });
+    } else {
+        container.append('<p>No results found.</p>');
+    }
+}
+
+
+        // Function to determine the link based on the table name
+        function getLink(result) {
+            console.log('Table name:', result.table); // Log the table name for debugging
+            switch (result.table) {
+                case 'workshops':
+                    return '/workshop';
+                case 'projects':
+                    return '/research_projects';
+                case 'internships':
+                    return '/home-internships';
+                case 'programs':
+                    return '/program';
+                case 'fablabs':
+                    return '/achievements';
+                default:
+                    return '#'; // Default link or handle accordingly
             }
         }
     });

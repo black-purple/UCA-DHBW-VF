@@ -15,13 +15,13 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('teacher_id')->unsigned()->nullable()->index();
             $table->string('title');
+            $table->string('slug')->unique();
             $table->longText('description');
             $table->integer('NB_hours');
             $table->string('course');
             $table->string('image_program')->nullable();
             $table->string('type'); // Added field to distinguish between Academic and Cultural programs
             $table->timestamps();
-
             $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('set null');
         });
     }

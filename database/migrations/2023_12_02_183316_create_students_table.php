@@ -17,14 +17,10 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('nationnality');
             $table->string('university');
-            $table->string('email_student');
+            $table->string('email');
             $table->date('date_birth');
             $table->string('phone_number');
             $table->string('photo')->nullable();
-            $table->bigInteger('exchanges_id')->unsigned()->nullable();
-            $table->bigInteger('internship_id')->unsigned()->nullable();
-            $table->foreign('exchanges_id')->references('id')->on('exchanges')->onDelete('set null');
-            $table->foreign('internship_id')->references('id')->on('internships')->onDelete('set null');
             $table->timestamps();
         });
     }

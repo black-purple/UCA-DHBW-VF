@@ -696,3 +696,215 @@ form a:hover{
         margin-bottom: -75px;
     }
 }
+
+@media(max-width : 600px){
+    .logo img{
+        width: 90px;
+    }
+}
+
+
+@media (max-width: 767px) {
+    #header-carousel img { 
+    	height : auto;
+        max-height: 400px; 
+    }
+}
+
+.notification {
+            position: fixed;
+            right: -180px;
+            background-color: #800000;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+            transition: right 0.5s ease-out;
+            top: 140px;
+            cursor: pointer;
+}
+
+.notification.show {
+            right: 20px;
+        }
+                  
+                  @media(max-width : 700px){
+                      .notification.show {
+            right: 5px;
+                          }
+                          
+        
+                  }
+
+        .notification div {
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        #toggleNotificationArrow {
+            position: absolute;
+            top: 50%;
+            left: -20px;
+            transform: translateY(-50%);
+            font-size: 20px;
+            cursor: pointer;
+            display: block;
+        }
+
+.notification2 {
+            position: fixed;
+            right: -220px;
+            background-color: #800000;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+            transition: right 0.5s ease-out;
+            top: 140px;
+            cursor: pointer;
+        }
+
+        .notification2.show {
+            right: 20px;
+        }
+                  
+                  @media(max-width : 700px){
+                      .notification2.show {
+            right: 5px;
+                          }
+                          
+        
+                  }
+
+        .notification2 div {
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+
+.notification3 {
+            position: fixed;
+            right: -265px;
+            background-color: #800000;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+            transition: right 0.5s ease-out;
+            top: 140px;
+            cursor: pointer;
+        }
+
+        .notification3.show {
+            right: 20px;
+        }
+                  
+                  @media(max-width : 700px){
+                      .notification3.show {
+            right: 5px;
+                          }
+                          
+        
+                  }
+
+        .notification3 div {
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+
+.notification4 {
+            position: fixed;
+            right: -210px;
+            background-color: #800000;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+            transition: right 0.5s ease-out;
+            top: 140px;
+            cursor: pointer;
+        }
+
+        .notification4.show {
+            right: 20px;
+        }
+                  
+                  @media(max-width : 700px){
+                      .notification4.show {
+            right: 5px;
+                          }
+                          
+        
+                  }
+
+        .notification4 div {
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+.notification5 {
+            position: fixed;
+            right: -205px;
+            background-color: #800000;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+            transition: right 0.5s ease-out;
+            top: 140px;
+            cursor: pointer;
+        }
+
+        .notification5.show {
+            right: 20px;
+        }
+                  
+                  @media(max-width : 700px){
+                      .notification5.show {
+            right: 5px;
+                          }
+                          
+        
+                  }
+
+        .notification5 div {
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+.notification6 {
+            position: fixed;
+            right: -275px;
+            background-color: #800000;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+            transition: right 0.5s ease-out;
+            top: 140px;
+            cursor: pointer;
+        }
+
+        .notification6.show {
+            right: 20px;
+        }
+                  
+                  @media(max-width : 700px){
+                      .notification6.show {
+            right: 5px;
+                          }
+                          
+        
+                  }
+
+        .notification6 div {
+            margin-bottom: 10px;
+            cursor: pointer;
+        }

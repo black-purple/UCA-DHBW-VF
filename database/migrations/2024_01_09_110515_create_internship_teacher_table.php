@@ -9,14 +9,12 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('projects', function (Blueprint $table) {
+        Schema::create('internship_teacher', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('slug')->unique();
-            $table->longText('description');
-            $table->string('image')->nullable();
+            $table->foreignId('internship_id')->constrained();
+            $table->foreignId('teacher_id')->constrained();
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('projects');
+        Schema::dropIfExists('internship_teacher');
     }
 };

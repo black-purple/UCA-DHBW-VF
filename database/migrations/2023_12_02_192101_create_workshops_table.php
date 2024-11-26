@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('partner_id')->unsigned()->nullable()->index();
             $table->string('title');
+            $table->string('slug')->unique();
             $table->longText('description');
             $table->string('university');
             $table->string('country');
@@ -22,7 +23,7 @@ return new class extends Migration
             $table->date('date_start');
             $table->date('date_end');
             $table->string('type');
-            $table->string('image_workshop')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
 
             $table->foreign('partner_id')->references('id')->on('partners')->onDelete('set null');

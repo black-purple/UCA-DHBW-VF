@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('internships', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('slug')->unique();
             $table->longText('description');
             $table->date('date_start');
             $table->date('date_end');

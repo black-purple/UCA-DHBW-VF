@@ -84,7 +84,7 @@
                                 <div class="col-lg-4 wow slideInUp" data-wow-delay="0.3s">
                                     <div class="team-item bg-light rounded overflow-hidden">
                                         <div class="team-img position-relative overflow-hidden">
-                                            <img class="img-fluid w-100" src="{{asset('img/user.png')}}" alt="">
+                                            <img class="img-fluid w-100" src="{{asset('storage/students/'.$student->photo)}}" alt="">
                                             <div class="team-social">
                                                 <!-- Social links -->
                                                 <a class="btn btn-lg btn-primary btn-lg-square rounded" href="mailto:{{$student->email_student}}" target="_blank">
@@ -94,16 +94,23 @@
                                         </div>
                                         <div class="text-center py-4">
                                             <h4 class="text-primary">{{$student->firstname}} {{$student->lastname}}</h4>
-                                            <p class="text-uppercase m-0 p2">
+                                            <!-- <p class="text-uppercase m-0 p2">
                                                 <h6 class="text-primary text-uppercase">Internship  </h6>
                                             <small><i class="far fa-calendar-alt text-primary me-2"></i>{{date('M d, Y', strtotime(optional($student->internship)->date_start ))}}-{{date('M d, Y', strtotime(optional($student->internship)->date_end))}}</small><br>
                                                 &nbsp;{{ optional($student->internship)->title ?? 'No Internship Title' }}
-                                            </p>
-                                        <p class="text-uppercase m-0 p2">
-                                                <h6 class="text-primary text-uppercase">Exchange </h6>
-                                        <small><i class="far fa-calendar-alt text-primary me-2"></i>{{date('M d, Y', strtotime(optional($student->exchange)->date_start ))}}-{{date('M d, Y', strtotime(optional($student->exchange)->date_end))}}</small><br>
+                                            </p> -->
+                                            @foreach ($student->internships as $internship)
+                                                <p class="text-uppercase m-0 p2">
+                                                    <h6 class="text-primary text-uppercase">Internship</h6>
+                                                    <small><i class="far fa-calendar-alt text-primary me-2"></i>{{ date('M d, Y', strtotime($internship->date_start)) }}-{{ date('M d, Y', strtotime($internship->date_end)) }}</small><br>
+                                                    &nbsp;{{ $internship->title ?? 'No Internship Title' }}
+                                                </p>
+                                            @endforeach
+                                            <!-- <p class="text-uppercase m-0 p2">
+                                                    <h6 class="text-primary text-uppercase">Exchange </h6>
+                                            <small><i class="far fa-calendar-alt text-primary me-2"></i>{{date('M d, Y', strtotime(optional($student->exchange)->date_start ))}}-{{date('M d, Y', strtotime(optional($student->exchange)->date_end))}}</small><br>
                                                 &nbsp;{{ optional($student->exchange)->type ?? 'No Exchange type' }}
-                                            </p>
+                                            </p> -->
                                         </div>
                                     </div>
                                 </div>
@@ -131,39 +138,8 @@
     <!-- Include scripts -->
     @include('front.partials.scripts')
 
-    <!-- AJAX script for form submission -->
-    <script>
-        $(document).ready(function () {
-            $('#filter-form').submit(function (e) {
-                e.preventDefault();
-                var formData = $(this).serialize();
-                $.ajax({
-                    type: 'GET',
-                    url: window.location.href,
-                    data: formData,
-                    success: function (data) {
-                        console.log('Received Data:', data);
-                        var filteredStudentsHtml = data.html;
-                        var tempContainer = $('<div>').html(filteredStudentsHtml);
-                        var resultContainer = tempContainer.find('#results-container');
-                        $('#results-container').empty();
-                        $('#results-container').append(resultContainer.html());
-                        $('html, body').animate({
-                            scrollTop: $('#results-container').offset().top
-                        }, 1000);
-                        $('#results-container .wow').attr('data-wow-delay', '0s');
-                        new WOW().init();
-                    },
-                    error: function (error) {
-                        console.log('Error:', error);
-                        if (error.responseText) {
-                            console.log('Error Response:', error.responseText);
-                        }
-                    }
-                });
-            });
-        });
-    </script>
+    <!-- AJAX script for form submission and pagination -->
+    @include('front.partials.form_script')
 
 
 

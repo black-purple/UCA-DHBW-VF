@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('date_end');
             $table->string('type');
             $table->longText('description');
-            $table->timestamps(); // Adds created_at and updated_at columns
+            $table->timestamps();
         });
     }
 

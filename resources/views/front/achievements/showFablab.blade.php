@@ -36,13 +36,13 @@
                 <div class="col-lg-7">
                     <div class="section-title position-relative pb-3 mb-5">
                         <h5 class="fw-bold text-primary text-uppercase">FabLabs</h5>
-                        <h1 class="mb-0">{{ $fablabs->title_fablab }}</h1>
+                        <h1 class="mb-0">{{ $fablabs->title}}</h1>
                     </div>
-                    <p class="mb-4">{{ $fablabs->description_fablab }}</p>
+                    <p class="mb-4">{{ $fablabs->description }}</p>
                 </div>
                 <div class="col-lg-5">
                     <div class="position-relative h-100">
-                        <img class=" w-100 h-100 rounded wow zoomIn img-fluid" data-wow-delay="0.9s" src="{{ asset('img/IMG_0310.JPG') }}" style="object-fit: contain;">
+                        <img class=" w-100 h-100 rounded wow zoomIn img-fluid" data-wow-delay="0.9s" src="{{ asset('storage/fablabs/'.$fablabs->image) }}" style="object-fit: contain;">
                     </div>
                 </div>
             </div>

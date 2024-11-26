@@ -31,7 +31,7 @@ class ProjectController extends Controller
             $imageProject = $request->file('image_project');
             $filename = time() . '_' . $imageProject->getClientOriginalName();
             $imageProject->storeAs('public/projects/', $filename);
-            $project->image_project = $filename;
+            $project->image = $filename;
         }
 
         $project->save();
@@ -43,16 +43,14 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         // Delete the associated image file if it exists
-        if ($project->image_project) {
-            $imagePath = storage_path('app/public/projects/' . $project->image_project);
+        if ($project->image) {
+            $imagePath = storage_path('app/public/projects/' . $project->image);
             if (file_exists($imagePath)) {
                 unlink($imagePath);
             }
         }
-
         // Delete the project
         $project->delete();
-
         return redirect()->back()->with('success', 'Project deleted successfully.');
     }
     public function showProjects(Request $request)
@@ -85,8 +83,8 @@ class ProjectController extends Controller
         // Handle the image_project field
         if ($request->hasFile('image_project')) {
             // Delete the old image file if it exists
-            if ($project->image_project) {
-                $oldImagePath = storage_path('app/public/projects/' . $project->image_project);
+            if ($project->image) {
+                $oldImagePath = storage_path('app/public/projects/' . $project->image);
                 if (file_exists($oldImagePath)) {
                     unlink($oldImagePath);
                 }
@@ -96,7 +94,7 @@ class ProjectController extends Controller
             $imageProject = $request->file('image_project');
             $filename = time() . '_' . $imageProject->getClientOriginalName();
             $imageProject->storeAs('public/projects/', $filename);
-            $project->image_project = $filename;
+            $project->image = $filename;
         }
 
         $project->save();

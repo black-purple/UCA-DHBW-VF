@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('fablabs', function (Blueprint $table) {
             $table->id();
-            $table->string('title_fablab');
-            $table->string('image_fablab')->nullable();
-            $table->longText('description_fablab');
+            $table->string('title');
+            $table->string('slug')->unique();
+            $table->string('image')->nullable();
+            $table->longText('description');
             $table->timestamps();
         });
     }

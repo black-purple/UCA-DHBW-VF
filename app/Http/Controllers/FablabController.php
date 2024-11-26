@@ -16,15 +16,15 @@ class FablabController extends Controller
         ]);
     
         $fablab = new Fablab();
-        $fablab->title_fablab = $validatedData['title_fablab'];
-        $fablab->description_fablab = $validatedData['description_fablab'];
-        $fablab->slug = Str::slug($fablab->title_fablab);
+        $fablab->title = $validatedData['title_fablab'];
+        $fablab->description = $validatedData['description_fablab'];
+        $fablab->slug = Str::slug($fablab->title);
         // Handle the image_fablab field
         if ($request->hasFile('image_fablab')) {
             $imageFablab = $request->file('image_fablab');
             $filename = time() . '_' . $imageFablab->getClientOriginalName();
             $imageFablab->storeAs('public/fablabs/', $filename);
-            $fablab->image_fablab = $filename;
+            $fablab->image = $filename;
         }
         $fablab->save();
         
@@ -33,8 +33,8 @@ class FablabController extends Controller
     
     public function destroy(Fablab $fablab)
     {
-        if ($fablab->image_fablab) {
-            $imagePath = storage_path('app/public/fablabs/' . $fablab->image_fablab);
+        if ($fablab->image) {
+            $imagePath = storage_path('app/public/fablabs/' . $fablab->image);
             if (file_exists($imagePath)) {
                 unlink($imagePath);
             }
@@ -53,14 +53,14 @@ class FablabController extends Controller
             'image_fablab' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
     
-        $fablab->title_fablab = $validatedData['title_fablab'];
-        $fablab->description_fablab = $validatedData['description_fablab'];
-        $fablab->slug = Str::slug($fablab->title_fablab);
+        $fablab->title = $validatedData['title_fablab'];
+        $fablab->description = $validatedData['description_fablab'];
+        $fablab->slug = Str::slug($fablab->title);
         // Handle the image_fablab field
         if ($request->hasFile('image_fablab')) {
             // Delete old image
-            if ($fablab->image_fablab) {
-                $oldImagePath = storage_path('app/public/fablabs/' . $fablab->image_fablab);
+            if ($fablab->image) {
+                $oldImagePath = storage_path('app/public/fablabs/' . $fablab->image);
                 if (file_exists($oldImagePath)) {
                     unlink($oldImagePath);
                 }
@@ -70,7 +70,7 @@ class FablabController extends Controller
             $imageFablab = $request->file('image_fablab');
             $filename = time() . '_' . $imageFablab->getClientOriginalName();
             $imageFablab->storeAs('public/fablabs/', $filename);
-            $fablab->image_fablab = $filename;
+            $fablab->image = $filename;
         }
     
         $fablab->save();

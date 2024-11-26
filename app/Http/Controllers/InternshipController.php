@@ -2,10 +2,83 @@
 // App\Http\Controllers\YourController.php
 namespace App\Http\Controllers;
 use App\Models\Internship;
+use App\Models\Partner;
+use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class InternshipController extends Controller
 {
+    public function internship_show(Internship $internship)
+    {
+        $internships = Internship::all();
+        $partners=Partner::all();
+        $students = Student::all();
+        $teachers = Teacher::all();
+        return view('back.internship_details', compact('internship','internships','partners','students','teachers'));
+    }
+    public function affectStudents(Request $request, $internshipId)
+{
+    // Validate the request data
+    $request->validate([
+        'student' => 'required|exists:students,id',
+    ]);
+
+    // Find the internship
+    $internship = Internship::findOrFail($internshipId);
+
+    // Attach the selected student to the internship if not already attached
+    $studentId = $request->input('student');
+    if (!$internship->students->contains($studentId)) {
+        $internship->students()->attach($studentId);
+    }
+
+    // Redirect back with success message
+    return redirect()->back()->with('success', 'Student added successfully to the internship.');
+}
+public function removeStudent($internshipId, $studentId)
+{
+    // Find the internship
+    $internship = Internship::findOrFail($internshipId);
+
+    // Detach the selected student from the internship
+    $internship->students()->detach($studentId);
+
+    // Redirect back with success message
+    return redirect()->back()->with('success', 'Student removed successfully from the internship.');
+}
+public function affectSupervisors(Request $request, $internshipId)
+{
+    // Validate the request data
+    $request->validate([
+        'supervisor' => 'required|exists:teachers,id',
+    ]);
+
+    // Find the internship
+    $internship = Internship::findOrFail($internshipId);
+
+    // Attach the selected supervisor to the internship if not already attached
+    $supervisorId = $request->input('supervisor');
+    if (!$internship->teachers->contains($supervisorId)) {
+        $internship->teachers()->attach($supervisorId);
+    }
+
+    // Redirect back with success message
+    return redirect()->back()->with('success', 'Supervisor added successfully to the internship.');
+}
+
+public function removeSupervisor($internshipId, $supervisorId)
+{
+    // Find the internship
+    $internship = Internship::findOrFail($internshipId);
+
+    // Detach the selected supervisor from the internship
+    $internship->teachers()->detach($supervisorId);
+
+    // Redirect back with success message
+    return redirect()->back()->with('success', 'Supervisor removed successfully from the internship.');
+}
     public function store(Request $request)
     {
         $request->validate([
@@ -19,6 +92,7 @@ class InternshipController extends Controller
 
         Internship::create([
             'title' => $request->input('title'),
+            'slug' => Str::slug($request->input('title')),
             'description' => $request->input('description'),
             'date_start' => $request->input('date_start'),
             'date_end' => $request->input('date_end'),
@@ -49,6 +123,7 @@ class InternshipController extends Controller
 
         $internship->update([
             'title' => $request->input('title'),
+            'slug'=> Str::slug($request->input('title')),
             'description' => $request->input('description'),
             'date_start' => $request->input('date_start'),
             'date_end' => $request->input('date_end'),

@@ -259,7 +259,7 @@
                             <tr id="{{ $workshop->id}}">
                                  <td>
                                     @if($partner->logo)
-                                    <img src="{{  url('storage/workshops/'.$workshop->image_workshop)}}" alt="workshop image" class="rounded-circle" style="width: 70px; height: 70px;">
+                                    <img src="{{  url('storage/workshops/'.$workshop->image)}}" alt="workshop image" class="rounded-circle" style="width: 70px; height: 70px;">
                                     @else
                                         No logo
                                     @endif

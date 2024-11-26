@@ -13,6 +13,7 @@ use App\Models\Project;
 use App\Models\Fablab;
 use App\Models\Program;
 use App\Models\Internship;
+use App\Models\News;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
@@ -95,12 +96,19 @@ class AdminController extends Controller
     public function partners()
     {
         $partners = Partner::all();
+        
         return view('back.partners',compact('partners'));
     }
     public function internships()
     {
+        $students = Student::all();
         $internships = Internship::all();
         $partners=Partner::all();
-        return view('back.internships',compact('internships','partners'));
+        return view('back.internships',compact('internships','partners','students'));
+    }
+    public function news()
+    {
+        $news = News::all();
+        return view('back.news',compact('news','news'));
     }
 }

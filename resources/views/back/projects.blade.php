@@ -184,8 +184,8 @@
                                 <td>{{ $project->title }}</td>
                                 <td>{{ $project->description }}</td>
                                 <td>
-                                    @if($project->image_project)
-                                        <img src="{{ url('storage/projects/'.$project->image_project) }}" alt="project image" class="rounded-circle" style="width: 65px; height: 65px;">
+                                    @if($project->image)
+                                        <img src="{{ url('storage/projects/'.$project->image) }}" alt="project image" class="rounded-circle" style="width: 65px; height: 65px;">
                                     @else
                                         No image
                                     @endif

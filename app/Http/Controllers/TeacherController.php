@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Teacher;
+use Illuminate\Support\Str;
 
 class TeacherController extends Controller
 {
@@ -13,7 +14,6 @@ class TeacherController extends Controller
         return back()->with('success', 'Teacher deleted successfully.');
     }
 
-
     public function store(Request $request)
     {
         $request->validate([
@@ -22,18 +22,19 @@ class TeacherController extends Controller
             'speciality' => 'required|string|max:255',
             'nationnality' => 'required|string|max:255',
             'university' => 'required|string|in:UCA,DHBW',
-            'email_teacher' => 'required|email|max:255|unique:teachers,email_teacher',
+            'email_teacher' => 'required|email|max:255|unique:teachers,email',
         ]);
         $photo = $request->file('photo');
         $filename = time() . '_' . $photo->getClientOriginalName();
-        $photo->storeAs('public/teachers/', $filename);
+        // $photo->storeAs('public/teachers/', $filename);
+    	$photo->move(public_path('storage/teachers'), $filename);
         $teacher = new Teacher();
         $teacher->firstname = $request->input('firstname');
         $teacher->lastname = $request->input('lastname');
         $teacher->speciality = $request->input('speciality');
         $teacher->nationnality = $request->input('nationnality');
         $teacher->university = $request->input('university');
-        $teacher->email_teacher = $request->input('email_teacher');
+        $teacher->email = $request->input('email_teacher');
         $teacher->phone_number = $request->input('phone_number');
         $teacher->photo = $filename;
         $teacher->save();
@@ -63,7 +64,7 @@ class TeacherController extends Controller
         $teacher->speciality = $request->input('speciality');
         $teacher->nationnality = $request->input('nationnality');
         $teacher->university = $request->input('university');
-        $teacher->email_teacher = $request->input('email_teacher');
+        $teacher->email = $request->input('email_teacher');
         $teacher->phone_number = $request->input('phone_number');
         $teacher->save();
 

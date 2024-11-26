@@ -15,6 +15,18 @@
     <div class="container-fluid position-relative p-0">
         @include('front.partials.navbar')
 
+<div id="sectionNotification" class="notification2 show">
+            <div>Quick Navigation</div>
+        <div id="toggleNotificationArrow" onclick="toggleNotification()">
+            <i class="fa-solid fa-circle-arrow-left" style="color: #800000; font-size: 28px;"></i>
+        </div>
+        <ul>
+        <li><div onclick="scrollToSection('programs')">PROGRAMS</div></li>
+        <li><div onclick="navigateToPage('/academic_programs')">ACADEMIC PROGRAMS</div></li>
+        <li><div onclick="navigateToPage('/cultural_programs')">CULTURAL PROGRAMS</div></li>
+        </ul>
+    </div>
+
         <div class="container-fluid bg-primary py-5 bg-header" style="margin-bottom: 90px;">
             <div class="row py-5">
                 <div class="col-12 pt-lg-5 mt-lg-5 text-center">
@@ -31,7 +43,7 @@
     @include('front.partials.screen_search')
 
     <!-- Programs Section -->
-    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s" id="programs">
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-7">
@@ -41,6 +53,11 @@
                     <p class="mb-4">The purpose of this cooperation between University Cadi Ayyad (UCA) & Duale Hochschule Baden-Württemberg (DHBW) is to match faculty members from both universities member institutions who will collaborate in the partial design and teaching of a course. Each professor will be expected to travel (if conditions due to the COVID-19 pandemic allow for it) to the partner institution, for a period that will be determined by the purpose of the exchange, during the winter or the spring semester (between January and June). In that week the professor will teach a class, meet with other faculty members in order to discuss future potential projects, give an open lecture to the community, etc. Professors are also expected to organize a virtual activity to give their students the opportunity to collaborate.<br>
                     The faculty exchange program is one way to take advantage of the benefits of diverse faculty. Ultimate goal of educational institutions is to develop a vibrant and diverse faculty. The faculty exchange programs present a unique opportunity for interaction between Foreign universities and University Cadi Ayyad. They will create a greater bond among the concerned institutions and will be a powerful recruitment and retention tool.<br>
                     This partnership also includes a cultural exchange program whose goal is to promote respect and deepening understanding for other cultures while strengthening relations. The more people learn to cooperate and collaborate there is mutual understanding of each other s way of life which then translates to promotion of international friendship and goodwill.</p>
+                    <div class="link-animated d-flex flex-column justify-content-start">
+                            <a class="h5 mb-md-4 animated  zoomIn fw-semi-bold bg-light rounded py-2" href="/academic_programs"><i class="bi bi-arrow-right me-2"></i>Academic Programs</a>
+                            <a class="h5 mb-md-4 animated  zoomIn fw-semi-bold bg-light rounded py-2" href="/cultural_programs"><i class="bi bi-arrow-right me-2"></i>Cultural Programs</a>
+                            
+                        </div>
                 </div>
                 <div class="col-lg-5">
                     <div class="position-relative h-100">
@@ -59,6 +76,9 @@
 
     <!-- Include scripts -->
     @include('front.partials.scripts')
+                    
+    <!-- Quick Navigation Script-->
+    @include('front.partials.navigation_script')
 </body>
 
 </html>
