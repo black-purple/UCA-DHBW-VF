@@ -264,9 +264,10 @@
                             <td>
                                 @if($student->photo)
                                 <img src="{{  url('storage/students/'.$student->photo)}}" alt="Partner Logo"
-                                    class="rounded-circle" style="width: 70px; height: 70px;">
+                                    class="rounded-circle" style="width: 60px; height: 60px;">
                                 @else
-                                No Photo
+                                <img src="{{  url('storage/students/user.jpg') }}" alt="Partner Logo"
+                                    class="rounded-circle" style="width: 60px; height: 60px;">
                                 @endif
                             </td>
                             <td>{{ $student->id }}</td>

@@ -220,7 +220,8 @@
                                     @if($teacher->photo)
                                         <img src="{{ asset('storage/teachers/'.$teacher->photo) }}" alt="Teacher Photo" class="img-prof rounded-circle" width="60" >
                                     @else
-                                        No Photo
+                                    <img src="{{  url('storage/students/user.jpg') }}" alt="Partner Logo"
+                                    class="rounded-circle" style="width: 60px; height: 60px;">
                                     @endif
                                 </td>
                                 <td>{{ $teacher->id }}</td>
