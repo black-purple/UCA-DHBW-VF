@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Workshop;
 use App\Models\Partner;
+use Illuminate\Support\Str;
 
 class WorkshopController extends Controller
 {
@@ -26,6 +27,7 @@ class WorkshopController extends Controller
         // Create a new workshop instance
         $workshop = new Workshop();
         $workshop->title = $request->input('title');
+        $workshop->slug = Str::slug($workshop->title);
         $workshop->partner_id = $request->input('partner_id');
         $workshop->description = $request->input('description');
         $workshop->university = $request->input('university');
@@ -34,13 +36,12 @@ class WorkshopController extends Controller
         $workshop->date_start = $request->input('date_start');
         $workshop->date_end = $request->input('date_end');
         $workshop->type = $request->input('type'); 
-       
         // Handle the image_workshop field
         if ($request->hasFile('image_workshop')) {
             $imageWorkshop = $request->file('image_workshop');
             $filename = time() . '_' . $imageWorkshop->getClientOriginalName();
             $imageWorkshop->storeAs('public/workshops/', $filename);
-            $workshop->image_workshop = $filename;
+            $workshop->image = $filename;
         }
         // Save the workshop to the database
         $workshop->save();
@@ -51,8 +52,8 @@ class WorkshopController extends Controller
     public function destroy(Workshop $workshop)
     {
         // Delete the associated image file if it exists
-        if ($workshop->image_workshop) {
-            $imagePath = storage_path('app/public/workshops/' . $workshop->image_workshop);
+        if ($workshop->image) {
+            $imagePath = storage_path('app/public/workshops/' . $workshop->image);
             if (file_exists($imagePath)) {
                 unlink($imagePath);
             }
@@ -82,8 +83,8 @@ class WorkshopController extends Controller
     
         if ($request->hasFile('image_workshop')) {
             // Delete the old image if it exists
-            if ($workshop->image_workshop) {
-                $oldImagePath = storage_path('app/public/workshops/' . $workshop->image_workshop);
+            if ($workshop->image) {
+                $oldImagePath = storage_path('app/public/workshops/' . $workshop->image);
                 if (file_exists($oldImagePath)) {
                     unlink($oldImagePath);
                 }
@@ -93,7 +94,8 @@ class WorkshopController extends Controller
             $imageWorkshop = $request->file('image_workshop');
             $filename = time() . '_' . $imageWorkshop->getClientOriginalName();
             $imageWorkshop->storeAs('public/workshops/', $filename);
-            $workshop->image_workshop = $filename;
+            $workshop->image = $filename;
+            $workshop->slug = Str::slug($workshop->title);
         }
     
         $workshop->save();

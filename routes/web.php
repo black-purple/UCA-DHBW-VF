@@ -4,12 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\StudentController;
-use App\Http\Controllers\Exchangecontroller;
-use App\Http\Controllers\Partnercontroller;
-use App\Http\Controllers\Workshopcontroller;
-use App\Http\Controllers\Projectcontroller;
-use App\Http\Controllers\Fablabcontroller;
-use App\Http\Controllers\Programcontroller;
+use App\Http\Controllers\ExchangeController;
+use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\WorkshopController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\FablabController;
+use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\InternshipController;
 
 
@@ -37,7 +37,9 @@ Route::get('/',[HomeController::class, 'index']);
 Route::get('/exchange_students',[HomeController::class, 'exchange_students']);
 Route::get('/students_profiles',[HomeController::class, 'students_profiles']);
 Route::get('/faculty_staff_exchange',[HomeController::class, 'faculty_staff_exchange']);
-Route::get('/home_internships',[HomeController::class, 'internships']);
+
+Route::get('/home-internships',[HomeController::class, 'internships']);
+
 Route::get('/workshop',[HomeController::class, 'workshop']);
 Route::get('/research_projects',[HomeController::class, 'research_projects']);
 Route::get('/program',[HomeController::class, 'program']);
@@ -46,10 +48,13 @@ Route::get('/cultural_programs',[HomeController::class, 'cultural_programs']);
 Route::get('/achievements',[HomeController::class, 'achievements']);
 Route::get('/partners',[HomeController::class, 'partners']);
 Route::get('/about',[HomeController::class, 'about']);
-Route::get('/news',[HomeController::class, 'news']);
+// Route::get('/news',[HomeController::class, 'news']);
 
 //Internships Controller : Front Office
-Route::get('/home_internships', [InternshipController::class, 'filterInternships'])->name('internships');
+
+Route::get('/home-internships', [InternshipController::class, 'filterInternships'])->name('home-internships');
+
+
 
 //Students Controller : Front Office
 Route::get('/students_profiles', [StudentController::class, 'filterStudents'])->name('students_profiles');
@@ -134,6 +139,8 @@ Route::group(['middleware' => 'admin.auth'], function () {
     Route::delete('/student-deleteRoute/{student}', [StudentController::class, 'destroy'])->name('students.destroy');
     Route::post('students.add', [StudentController::class, 'store'])->name('students.add');
     Route::put('/students/update/{student}', [StudentController::class, 'update'])->name('students.update');
+    Route::get('/students/{id}', [StudentController::class, 'showProfile'])->name('student.profile');
+    Route::get('/affectInternship', [StudentController::class, 'affectInternship'])->name('affectInternship');
 
 
     // Exchanges  
@@ -156,6 +163,12 @@ Route::group(['middleware' => 'admin.auth'], function () {
     Route::delete('/internships-deleteRoute/{internship}', [InternshipController::class, 'destroy'])->name('internships.destroy');
     Route::post('internships.add', [InternshipController::class, 'store'])->name('internships.add');
     Route::put('/internships/update/{internship}', [InternshipController::class, 'update'])->name('internships.update');
+    Route::get('/internship_show/{internship}', [InternshipController::class, 'internship_show'])->name('internship_show');
+    Route::put('/internships/affectStudents/{internship}', [InternshipController::class, 'affectStudents'])->name('internships.affectStudents');
+    Route::delete('/internships/removeStudent/{internship}/{student}', [InternshipController::class, 'removeStudent'])->name('internships.removeStudent');
+    Route::put('/internships/affectSupervisors/{internship}', [InternshipController::class, 'affectSupervisors'])->name('internships.affectSupervisors');
+    Route::delete('/internships/removeSupervisor/{internship}/{supervisor}', [InternshipController::class, 'removeSupervisor'])->name('internships.removeSupervisor');
+
 
     // Projects 
     Route::get('/projects', [AdminController::class, 'projects'])->name('projects');
@@ -172,6 +185,11 @@ Route::group(['middleware' => 'admin.auth'], function () {
     Route::delete('/programs-deleteRoute/{program}', [ProgramController::class, 'destroy'])->name('programs.destroy');
     Route::post('programs.add', [ProgramController::class, 'store'])->name('programs.add');
     Route::put('/programs/update/{program}', [ProgramController::class, 'update'])->name('programs.update');
+    // programs 
+    // Route::get('/news', [AdminController::class, 'news'])->name('news');
+    // Route::delete('/programs-deleteRoute/{program}', [ProgramController::class, 'destroy'])->name('programs.destroy');
+    // Route::post('programs.add', [ProgramController::class, 'store'])->name('programs.add');
+    // Route::put('/programs/update/{program}', [ProgramController::class, 'update'])->name('programs.update');
 });
 
 

@@ -14,21 +14,23 @@ class Student extends Model
         'lastname',
         'nationnality',
         'university',
-        'email_student',
+        'email',
         'date_birth',
         'phone_number',
-        'exchanges_id',
-        'internship_id',
     ];
 
-    public function exchange()
+    public function internships()
     {
-        return $this->belongsTo(Exchange::class, 'exchanges_id');
+        return $this->belongsToMany(Internship::class);
     }
 
-    public function internship()
+    public function projects()
     {
-        return $this->belongsTo(Internship::class, 'internship_id');
+        return $this->belongsToMany(Project::class);
     }
-   
+
+    public function fablabs()
+    {
+        return $this->belongsToMany(Fablab::class);
+    }
 }

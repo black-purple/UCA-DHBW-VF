@@ -55,7 +55,7 @@
                 </div>
                 <div class="col-lg-5">
                                             <div class="position-relative h-100">
-                                                <img class=" w-100 h-100 rounded wow zoomIn img-fluid" data-wow-delay="0.9s" src="{{ asset('img/IMG_0310.JPG') }}" style="object-fit: contain;">
+                                                <img class=" w-100 h-100 rounded wow zoomIn img-fluid" data-wow-delay="0.9s" src="{{ asset('storage/projects/'.$projects->image) }}" style="object-fit: contain;">
                                             </div>
                                         </div>
             </div>

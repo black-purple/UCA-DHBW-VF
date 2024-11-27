@@ -15,6 +15,18 @@
     <div class="container-fluid position-relative p-0">
         @include('front.partials.navbar')
 
+<div id="sectionNotification" class="notification4 show">
+            <div>Quick Navigation</div>
+        <div id="toggleNotificationArrow" onclick="toggleNotification()">
+            <i class="fa-solid fa-circle-arrow-left" style="color: #800000; font-size: 28px;"></i>
+        </div>
+        <ul>
+        <li><div onclick="scrollToSection('internships')">INTERNSHIPS</div></li>
+        <li><div onclick="scrollToSection('refine_search')">FILTER INTERNSHIPS</div></li>
+        
+        </ul>
+    </div>
+
         <div class="container-fluid bg-primary py-5 bg-header" style="margin-bottom: 90px;">
             <div class="row py-5">
                 <div class="col-12 pt-lg-5 mt-lg-5 text-center">
@@ -31,7 +43,7 @@
     @include('front.partials.screen_search')
 
     <!-- Internships Section -->
-    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s" id="internships">
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-7">
@@ -49,7 +61,7 @@
         </div>
 
         <!-- Refine Search Section -->
-        <div class="container py-5">
+        <div class="container py-5" id="refine_search">
             <div class="col-lg-7">
                 <h5 class="fw-bold text-primary text-uppercase">Refine your Search</h5>
                 <div class="box">
@@ -96,10 +108,10 @@
                                     <i class="far fa-calendar-alt text-primary me-2"></i>{{date('M d, Y', strtotime($internship->date_start))}} - {{date('M d, Y', strtotime($internship->date_end)) }}
                                     <br>
                                     <i class='fas fa-briefcase' style='color:#800000'></i>&nbsp;&nbsp;{{ $internship->company }}<br><br>
-                                    <h6 data-bs-toggle="collapse" data-bs-target="#workshopDescription" aria-expanded="false" aria-controls="workshopDescription" class="text-primary text-uppercase" style="cursor: pointer;">
+                                    <h6 data-bs-toggle="collapse" data-bs-target="#workshopDescription{{ $internship->id }}" aria-expanded="false" aria-controls="workshopDescription{{ $internship->id }}" class="text-primary text-uppercase" style="cursor: pointer;">
         DESCRIPTION
     </h6>
-    <div id="workshopDescription" class="collapse" style="text-align : justify; margin : 20px;">
+    <div id="workshopDescription{{ $internship->id }}" class="collapse" style="text-align : justify; margin : 20px;">
         <!-- Content to be collapsed -->
         {{ $internship->description }}
     </div>
@@ -127,39 +139,11 @@
     <!-- Include scripts -->
     @include('front.partials.scripts')
 
-    <!-- AJAX script for form submission -->
-    <script>
-        $(document).ready(function () {
-            $('#filter-form').submit(function (e) {
-                e.preventDefault();
-                var formData = $(this).serialize();
-                $.ajax({
-                    type: 'GET',
-                    url: window.location.href,
-                    data: formData,
-                    success: function (data) {
-                        console.log('Received Data:', data);
-                        var filteredStudentsHtml = data.html;
-                        var tempContainer = $('<div>').html(filteredStudentsHtml);
-                        var resultContainer = tempContainer.find('#results-container');
-                        $('#results-container').empty();
-                        $('#results-container').append(resultContainer.html());
-                        $('html, body').animate({
-                            scrollTop: $('#results-container').offset().top
-                        }, 1000);
-                        $('#results-container .wow').attr('data-wow-delay', '0s');
-                        new WOW().init();
-                    },
-                    error: function (error) {
-                        console.log('Error:', error);
-                        if (error.responseText) {
-                            console.log('Error Response:', error.responseText);
-                        }
-                    }
-                });
-            });
-        });
-    </script>
+    <!-- AJAX script for form submission and pagination -->
+    @include('front.partials.form_script')
+    
+    <!-- Quick Navigation Script-->
+    @include('front.partials.navigation_script')
 </body>
 
 </html>

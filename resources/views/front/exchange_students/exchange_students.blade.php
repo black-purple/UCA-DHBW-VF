@@ -14,6 +14,18 @@
   <!-- Navbar Section -->
   <div class="container-fluid position-relative p-0">
     @include('front.partials.navbar')
+      <div id="sectionNotification" class="notification2 show">
+            <div>Quick Navigation</div>
+        <div id="toggleNotificationArrow" onclick="toggleNotification()">
+            <i class="fa-solid fa-circle-arrow-left" style="color: #800000; font-size: 28px;"></i>
+        </div>
+        <ul>
+        <li><div onclick="scrollToSection('students_exchange')">STUDENTS EXCHANGE</div></li>
+        <li><div onclick="scrollToSection('incoming_exchange_students')">INCOMING EXCHANGE</div></li>
+        <li><div onclick="navigateToPage('/students_profiles')">STUDENTS PROFILES</div></li>
+        
+        </ul>
+    </div>
 
     <div class="container-fluid bg-primary py-5 bg-header" style="margin-bottom: 90px;">
       <div class="row py-5">
@@ -31,31 +43,20 @@
   @include('front.partials.screen_search')
 
   <!-- Exchange Students Section -->
-  <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+  <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s" id="students_exchange">
       
-    <div class="container py-5">
+    <div class="container py-5" >
         <div class="row g-5">
-            <div class="col-lg-7">
+            
             <div class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 600px;">
         <h1 class="mb-0">Students Exchange </h1>
       </div>
             <p class="mb-4 p-size">Welcome to the Exchange Students Program, a collaborative initiative between Cadi Ayyad University (UCA) and Baden-Württemberg Cooperative State University (DHBW). Immerse yourself in a global experience that transcends borders, embraces cultural diversity, and elevates your academic journey.</p>
-        </div>
-        <div class="col-lg-5">
-        <div class="mb-5 wow slideInUp" data-wow-delay="0.1s">
-                        <div class="section-title section-title-sm position-relative pb-3 mb-4">
-                            <h3 class="mb-0">Important Links</h3>
-                        </div>
-                        <div class="link-animated d-flex flex-column justify-content-start">
-                            <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#students_exchange"><i class="bi bi-arrow-right me-2"></i>Students Exchange</a>
-                            <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="#incoming_exchange_students"><i class="bi bi-arrow-right me-2"></i>Incoming Exchange Students</a>
-                            <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2" href="/students_profiles"><i class="bi bi-arrow-right me-2"></i>Students Profiles</a>
-                        </div>
-                    </div>
-        </div>
+        
+        
         
       </div>
-      <div class="row g-5" id="students_exchange">
+      <div class="row g-5" >
         
         <div class="col-lg-7">
           <h5 class="fw-bold text-primary text-uppercase">What is the applicant exchange?</h5>
@@ -82,7 +83,7 @@
         </div>
         <div class="col-lg-5" style="min-height: 500px;">
           <div class="position-relative h-100">
-            <img class="position-absolute w-100 h-100 rounded wow zoomIn" data-wow-delay="0.9s" src="{{asset('img/IMG_0705.JPG')}}" style="object-fit: cover;">
+            <img class="position-absolute w-100 h-100 rounded wow zoomIn" data-wow-delay="0.9s" src="{{asset('img/IMG_0705.jpg')}}" style="object-fit: cover;">
           </div>
         </div>
       </div>
@@ -149,6 +150,9 @@
 
   <!-- Include Scripts -->
   @include('front.partials.scripts')
+    
+    <!-- Quick Navigation Script-->
+    @include('front.partials.navigation_script')
 </body>
 
 </html>

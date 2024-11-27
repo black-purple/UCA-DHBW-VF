@@ -11,7 +11,7 @@ class Program extends Model
     
 
     protected $fillable = [
-        'teacher_id', 'title', 'description', 'NB_hours', 'course', 'image_program', 'type',
+        'teacher_id', 'title', 'slug', 'description', 'NB_hours', 'course', 'image_program', 'type',
     ];
 
     /**

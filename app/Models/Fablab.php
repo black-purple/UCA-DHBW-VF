@@ -10,4 +10,10 @@ class Fablab extends Model
     use HasFactory;
     protected $fillable = ['title_fablab', 'description_fablab', 'image_fablab','slug'];
 
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class);
+    }
+
 }

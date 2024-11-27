@@ -11,9 +11,16 @@ class Project extends Model
     use HasFactory;
     protected $fillable = [
         'title',
+        'slug',
         'description',
         'image_project',
         'slug'
 
     ];
+
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class);
+    }
 }

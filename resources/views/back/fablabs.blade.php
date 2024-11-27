@@ -184,8 +184,8 @@
                         @foreach($fablabs as $fablab)
                             <tr id="{{ $fablab->id }}">
                                 <td>{{ $fablab->id }}</td>
-                                <td>{{ $fablab->title_fablab }}</td>
-                                <td>{{ $fablab->description_fablab }}</td>
+                                <td>{{ $fablab->title }}</td>
+                                <td>{{ $fablab->description }}</td>
                                 <td>
                                     @if($fablab->image_fablab)
                                         <img src="{{ url('storage/fablabs/'.$fablab->image_fablab) }}" alt="fablab image" class="rounded-circle" style="width: 65px; height: 65px;">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Workshop;
 use App\Models\Project;
@@ -12,63 +13,53 @@ use App\Models\Fablab;
 class SearchController extends Controller
 {
     
-   public function search(Request $request)
-{
-    // Get the search query from the request
-    $query = $request->input('query');
 
-    // Create an empty collection to store the combined results
+    public function search(Request $request)
+{
+    $query = $request->input('query');
     $combinedResults = collect();
 
-    // Search in workshops
-    $workshopResults = Workshop::where('title', 'like', '%' . $query . '%')
-        ->orWhere('description', 'like', '%' . $query . '%')
-        ->get(['title', 'description']);
-    $combinedResults = $combinedResults->merge($this->filterResults($workshopResults));
+    $models = [
+        Workshop::class,
+        Project::class,
+        Internship::class,
+        Program::class,
+        Fablab::class,
+        // Add more model classes as needed
+    ];
 
-    // Search in projects
-    $projectResults = Project::where('title', 'like', '%' . $query . '%')
-        ->orWhere('description', 'like', '%' . $query . '%')
-        ->get(['title', 'description']);
-    $combinedResults = $combinedResults->merge($this->filterResults($projectResults));
+    foreach ($models as $model) {
+        $tableName = (new $model)->getTable();
 
-    // Search in internships
-    $internshipResults = Internship::where('title', 'like', '%' . $query . '%')
-        ->orWhere('description', 'like', '%' . $query . '%')
-        ->get(['title', 'description']);
-    $combinedResults = $combinedResults->merge($this->filterResults($internshipResults));
+        $results = $model::where('title', 'like', '%' . $query . '%')
+            ->orWhere('description', 'like', '%' . $query . '%')
+            ->get(['title', 'description']);
 
-    // Search in programs
-    $programResults = Program::where('title', 'like', '%' . $query . '%')
-        ->orWhere('description', 'like', '%' . $query . '%')
-        ->get(['title', 'description']);
-    $combinedResults = $combinedResults->merge($this->filterResults($programResults));
-
-    // Search in fablabs
-    $fablabResults = Fablab::where('title_fablab', 'like', '%' . $query . '%')
-        ->orWhere('description_fablab', 'like', '%' . $query . '%')
-        ->get(['title_fablab', 'description_fablab']);
-    $combinedResults = $combinedResults->merge($this->filterResults($fablabResults));
+        $combinedResults = $combinedResults->merge($this->filterResults($results, $tableName));
+    }
 
     // Ensure uniqueness of results
     $combinedResults = $combinedResults->unique();
+
+    // Limit the description to 100 characters
+    $combinedResults = $combinedResults->map(function ($result) {
+        $result['description'] = Str::limit($result['description'], 100);
+        return $result;
+    });
 
     // Return the combined results as a JSON response
     return response()->json(['searchResults' => $combinedResults->values()]);
 }
 
-// Helper method to filter out null values
-private function filterResults($results)
+private function filterResults($results, $tableName)
 {
-    return $results->filter(function ($item) {
-        // Exclude entries with null values in title or description
-        return !is_null($item->title) && !is_null($item->description);
+    // You can implement any additional filtering or processing logic here
+    return $results->map(function ($result) use ($tableName) {
+        $result['table'] = $tableName;
+        return $result;
     });
 }
 
 
 
-
-    
-    
 }

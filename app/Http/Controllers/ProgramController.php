@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Program;
+use Illuminate\Support\Str;
 
 class ProgramController extends Controller
 {
@@ -22,6 +23,7 @@ class ProgramController extends Controller
         $program = new Program();
         $program->teacher_id = $validatedData['teacher_id'];
         $program->title = $validatedData['title'];
+        $program->slug = Str::slug($program->title);
         $program->description = $validatedData['description'];
         $program->NB_hours = $validatedData['NB_hours'];
         $program->course = $validatedData['course'];
@@ -42,8 +44,8 @@ class ProgramController extends Controller
 
     public function destroy(Program $program)
     {
-        if ($program->image_program) {
-            $imagePath = storage_path('app/public/programs/' . $program->image_program);
+        if ($program->image) {
+            $imagePath = storage_path('app/public/programs/' . $program->image);
             if (file_exists($imagePath)) {
                 unlink($imagePath);
             }
@@ -69,6 +71,7 @@ class ProgramController extends Controller
     
         $program->teacher_id = $validatedData['teacher_id'];
         $program->title = $validatedData['title'];
+        $program->slug = Str::slug($program->title);
         $program->description = $validatedData['description'];
         $program->NB_hours = $validatedData['NB_hours'];
         $program->course = $validatedData['course'];
@@ -110,7 +113,7 @@ class ProgramController extends Controller
         if ($title) {
             $filteredPrograms = Program::where('title', $title)
                 ->whereRaw('LOWER(type) = ?', ['academic'])
-                ->get();
+                ->paginate(3);
         }
         
         // Return a JSON response for AJAX requests
@@ -138,7 +141,7 @@ class ProgramController extends Controller
         if ($title) {
             $filteredPrograms = Program::where('title', $title)
                 ->whereRaw('LOWER(type) = ?', ['cultural'])
-                ->get();
+                ->paginate(3);
         }
         
         // Return a JSON response for AJAX requests

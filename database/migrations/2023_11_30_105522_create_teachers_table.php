@@ -17,7 +17,7 @@ class CreateTeachersTable extends Migration
             $table->string('speciality');
             $table->string('nationnality');
             $table->string('university');
-            $table->string('email_teacher');
+            $table->string('email');
             $table->string('phone_number');
             $table->string('photo')->nullable();
             $table->timestamps();

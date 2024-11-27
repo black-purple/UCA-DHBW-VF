@@ -12,6 +12,7 @@ class Workshop extends Model
     protected $fillable = [
         'partner_id',
         'title',
+        'slug',
         'description',
         'university',
         'country',
@@ -25,6 +26,11 @@ class Workshop extends Model
     public function partner()
     {
         return $this->belongsTo(Partner::class, 'partner_id');
+    }
+
+    public function teachers()
+    {
+        return $this->belongsToMany(Teacher::class);
     }
 
 
