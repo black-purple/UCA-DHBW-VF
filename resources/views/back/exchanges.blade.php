@@ -119,12 +119,12 @@
                 <div class="row">
                     <h2 class="col-10">Exchanges</h2>
                     <div class="col-2">
-                        <button type="button" class="btn btn-success" data-toggle="modal"
-                            data-target="#modal_input">
+                        <button type="button" class="btn btn-success d-flex align-items-cente" style="width:100;" data-toggle="modal" data-target="#modal_input">
                             <i class="fa-solid fa-plus text mt-1 fs-5"></i>
-                            Add exchange
+                            <span class="ms-2">Add exchange</span>
                         </button>
                     </div>
+
                 </div>
                 <!-- Add Exchange -->
                 <div class="modal fade" id="modal_input" tabindex="-1" role="dialog"
@@ -361,83 +361,6 @@
                                 <textarea class="form-control" style="background-color: #ffffff;" id="description_update" name="description" rows="4" required></textarea>
                             </div>
                             <div class="d-flex justify-content-end mt-4">
-                                <button type="button" class="btn btn-success" id="nextStepEdit">
-                                    Next <i class="fa-solid fa-arrow-right ms-2"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Step 2: Select Students -->
-                        <div id="step2E" class="d-none">
-                            <h6>Select Students for the Exchange</h6>
-
-
-                            <div class="row">
-                                <h2 class="col-10">Exchanges</h2>
-                                <div class="col-2">
-                                    <button type="button" class="btn btn-success" data-toggle="modal"
-                                        data-target="#modal_input">
-                                        <i class="fa-solid fa-plus text mt-1 fs-5"></i>
-                                        Add student
-                                    </button>
-                                </div>
-                            </div>
-                            <table class="table my-4">
-                                <thead>
-                                    <tr>
-
-                                        <th>Photo</th>
-                                        <th>ID</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Nationality</th>
-                                        <th>University</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($exchange->students as $student)
-                                    <tr>
-
-                                        <td>
-                                            <img src="{{ asset('storage/students/' . ($student->photo ?? 'user.jpg')) }}"
-                                                 alt="Student Photo"
-                                                 class="rounded-circle"
-                                                 style="width: 40px; height: 40px;">
-                                        </td>
-                                        <td>{{ $student->id }}</td>
-                                        <td>{{ $student->firstname }}</td>
-                                        <td>{{ $student->lastname }}</td>
-                                        <td>{{ $student->nationnality }}</td>
-                                        <td>{{ $student->university }}</td>
-
-                                        <td>
-                                            <div class="d-inline">
-                                                <a href="#" class="d-inline">
-                                                    <button type="button" class="btn-sm btn-danger"
-                                                        onclick="show_confirmation_message('Are you sure you want to delete this exchange ?',{{ $student->id }})">
-                                                        <i class="fa-solid fa-trash mx-1 fs-5"></i>
-                                                    </button>
-                                                </a>
-                                                <a href="route" hidden>
-                                                    <form action="{{ route('exchanges.destroy', $exchange->id) }}"
-                                                        method="post" style="display: inline-block; width: auto;">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <button type="submit" class="btn-sm btn-danger"
-                                                            id="delete_confirm_{{ $exchange->id }}">Delete exchange</button>
-                                                    </form>
-                                                </a>
-                                            </div>
-
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            <div class="d-flex justify-content-end">
-                                <button type="button" class="btn btn-secondary me-2"
-                                    id="prevStepEdit">Back</button>
                                 <button type="submit" class="btn btn-success">Submit</button>
                             </div>
                         </div>
@@ -491,12 +414,8 @@
     $("#type_update").val(exchangeData.type);
     $("#description_update").val(exchangeData.description);
     $("#universite_update").val(exchangeData.universite);
-
     // Open the modal
     $("#updateModal").modal("show");
-
-    // Fetch students for the specific exchange
-    fetchStudentsForExchange(exchangeId);
 }
 
 
@@ -511,15 +430,6 @@
             document.getElementById('step2').classList.add('d-none');
             document.getElementById('step1').classList.remove('d-none');
         });
-        document.getElementById('nextStepEdit').addEventListener('click', function() {
-        document.getElementById('step1E').classList.add('d-none');
-        document.getElementById('step2E').classList.remove('d-none');
-    });
-
-    document.getElementById('prevStepEdit').addEventListener('click', function() {
-        document.getElementById('step2E').classList.add('d-none');
-        document.getElementById('step1E').classList.remove('d-none');
-    });
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
