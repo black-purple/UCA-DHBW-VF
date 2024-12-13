@@ -17,6 +17,7 @@ return new class extends Migration
             $table->date('date_end');
             $table->string('type');
             $table->longText('description');
+            $table->string('universite');
             $table->timestamps();
         });
     }

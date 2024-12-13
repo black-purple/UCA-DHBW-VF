@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Exchange;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Models\Student;
 
 class Exchangecontroller extends Controller
 {
@@ -173,5 +174,29 @@ class Exchangecontroller extends Controller
         // Passer les données à la vue
         return view('front.exchanges.home_exchanges', compact('exchanges', 'years', 'filteredExchanges', 'year'));
     }
+    // public function getStudentsForExchange(Request $request)
+    // {
+    //     $exchangeId = $request->query('exchange_id');
 
+    //     // Get students associated with this exchange
+    //     $students = Student::whereHas('exchanges', function($query) use ($exchangeId) {
+    //         $query->where('exchange_id', $exchangeId);
+    //     })->get();
+
+    //     return response()->json(['students' => $students]);
+    // }
+//     public function getStudentsForExchange($exchangeId)
+// {
+//     $students = Exchange::find($exchangeId)->students;  // Assuming your relationship is set up like this
+//     return response()->json(['students' => $students]);
+// }
+    public function showExchangeForm($exchangeId)
+    {
+        $exchange = Exchange::find($exchangeId);
+        $students = Student::all();
+        $selectedStudents = $exchange->students->pluck('id')->toArray();
+        
+        dd(compact('students', 'exchange', 'selectedStudents'));
+        return view('back.exchanges',compact('students','exchange','selectedStudents'));
+    }
 }

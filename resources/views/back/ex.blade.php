@@ -199,7 +199,6 @@
                                             </button>
                                         </div>
                                     </div>
-
                                     <!-- Step 2: Select Students -->
                                     <div id="step2" class="d-none">
                                         <h6>Select Students for the Exchange</h6>
@@ -215,8 +214,25 @@
                                                     <th>University</th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="studentsTable">
-                                                <!-- Students will be loaded here dynamically -->
+                                            <tbody>
+                                                @foreach($students as $student)
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" name="students[]" value="{{ $student->id }}">
+                                                    </td>
+                                                    <td>
+                                                        <img src="{{ $student->photo ? url('storage/students/'.$student->photo) : url('storage/students/user.jpg') }}"
+                                                            alt="Student Photo"
+                                                            class="rounded-circle"
+                                                            style="width: 40px; height: 40px;">
+                                                    </td>
+                                                    <td>{{ $student->id }}</td>
+                                                    <td>{{ $student->firstname }}</td>
+                                                    <td>{{ $student->lastname }}</td>
+                                                    <td>{{ $student->nationnality }}</td>
+                                                    <td>{{ $student->university }}</td>
+                                                </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                         <div class="d-flex justify-content-end">
@@ -301,7 +317,6 @@
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
     <!-- Start Update  Modal -->
-
     <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="addTeacherModalLabel">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -370,69 +385,39 @@
                         <!-- Step 2: Select Students -->
                         <div id="step2E" class="d-none">
                             <h6>Select Students for the Exchange</h6>
-
-
-                            <div class="row">
-                                <h2 class="col-10">Exchanges</h2>
-                                <div class="col-2">
-                                    <button type="button" class="btn btn-success" data-toggle="modal"
-                                        data-target="#modal_input">
-                                        <i class="fa-solid fa-plus text mt-1 fs-5"></i>
-                                        Add student
-                                    </button>
-                                </div>
-                            </div>
                             <table class="table my-4">
                                 <thead>
                                     <tr>
-
+                                        <th></th>
                                         <th>Photo</th>
                                         <th>ID</th>
                                         <th>First Name</th>
                                         <th>Last Name</th>
                                         <th>Nationality</th>
                                         <th>University</th>
-                                        <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @foreach ($exchange->students as $student)
-                                    <tr>
-
-                                        <td>
-                                            <img src="{{ asset('storage/students/' . ($student->photo ?? 'user.jpg')) }}"
-                                                 alt="Student Photo"
-                                                 class="rounded-circle"
-                                                 style="width: 40px; height: 40px;">
-                                        </td>
-                                        <td>{{ $student->id }}</td>
-                                        <td>{{ $student->firstname }}</td>
-                                        <td>{{ $student->lastname }}</td>
-                                        <td>{{ $student->nationnality }}</td>
-                                        <td>{{ $student->university }}</td>
-
-                                        <td>
-                                            <div class="d-inline">
-                                                <a href="#" class="d-inline">
-                                                    <button type="button" class="btn-sm btn-danger"
-                                                        onclick="show_confirmation_message('Are you sure you want to delete this exchange ?',{{ $student->id }})">
-                                                        <i class="fa-solid fa-trash mx-1 fs-5"></i>
-                                                    </button>
-                                                </a>
-                                                <a href="route" hidden>
-                                                    <form action="{{ route('exchanges.destroy', $exchange->id) }}"
-                                                        method="post" style="display: inline-block; width: auto;">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <button type="submit" class="btn-sm btn-danger"
-                                                            id="delete_confirm_{{ $exchange->id }}">Delete exchange</button>
-                                                    </form>
-                                                </a>
-                                            </div>
-
-                                        </td>
-                                    </tr>
-                                    @endforeach
+                                <tbody >
+                                    <tbody>
+                                        @foreach($students as $student)
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" name="students[]" value="{{ $student->id }}">
+                                            </td>
+                                            <td>
+                                                <img src="{{ $student->photo ? url('storage/students/'.$student->photo) : url('storage/students/user.jpg') }}"
+                                                    alt="Student Photo"
+                                                    class="rounded-circle"
+                                                    style="width: 40px; height: 40px;">
+                                            </td>
+                                            <td>{{ $student->id }}</td>
+                                            <td>{{ $student->firstname }}</td>
+                                            <td>{{ $student->lastname }}</td>
+                                            <td>{{ $student->nationnality }}</td>
+                                            <td>{{ $student->university }}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
                                 </tbody>
                             </table>
                             <div class="d-flex justify-content-end">
@@ -499,19 +484,54 @@
     fetchStudentsForExchange(exchangeId);
 }
 
+function fetchStudentsForExchange(exchangeId) {
+    const studentsTable = document.getElementById('studentsTable');
+    studentsTable.innerHTML = '<tr><td colspan="7">Loading...</td></tr>';
 
-    </script>
-    <script>
-            document.getElementById('nextStep').addEventListener('click', function() {
-            document.getElementById('step1').classList.add('d-none');
-            document.getElementById('step2').classList.remove('d-none');
-        });
+    // Fetch the students associated with this exchange
+    fetch(`/exchanges/${exchangeId}/students`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.students.length > 0) {
+                let rows = '';
+                data.students.forEach(student => {
+                    // Check if the student is already associated with the exchange
+                    const isChecked = student.is_selected ? 'checked' : '';
 
-        document.getElementById('prevStep').addEventListener('click', function() {
-            document.getElementById('step2').classList.add('d-none');
-            document.getElementById('step1').classList.remove('d-none');
+                    rows += `
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="student_ids[]" value="${student.id}" ${isChecked}>
+                        </td>
+                        <td>
+                            <img src="/storage/students/${student.photo || 'user.jpg'}"
+                                alt="Student Photo"
+                                class="rounded-circle"
+                                style="width: 40px; height: 40px;">
+                        </td>
+                        <td>${student.id}</td>
+                        <td>${student.firstname}</td>
+                        <td>${student.lastname}</td>
+                        <td>${student.nationality}</td>
+                        <td>${student.university}</td>
+                    </tr>
+                `;
+                });
+                studentsTable.innerHTML = rows;
+            } else {
+                studentsTable.innerHTML =
+                    '<tr><td colspan="7">No students available.</td></tr>';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching students:', error);
+            studentsTable.innerHTML =
+                '<tr><td colspan="7">Failed to load students.</td></tr>';
         });
-        document.getElementById('nextStepEdit').addEventListener('click', function() {
+    }
+
+    // Handle Step navigation (next and previous)
+    document.getElementById('nextStepEdit').addEventListener('click', function() {
         document.getElementById('step1E').classList.add('d-none');
         document.getElementById('step2E').classList.remove('d-none');
     });
@@ -520,6 +540,19 @@
         document.getElementById('step2E').classList.add('d-none');
         document.getElementById('step1E').classList.remove('d-none');
     });
+
+    </script>
+    <script>
+
+        document.getElementById('nextStep').addEventListener('click', function() {
+            document.getElementById('step1').classList.add('d-none');
+            document.getElementById('step2').classList.remove('d-none');
+        });
+
+        document.getElementById('prevStep').addEventListener('click', function() {
+            document.getElementById('step2').classList.add('d-none');
+            document.getElementById('step1').classList.remove('d-none');
+        });
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
