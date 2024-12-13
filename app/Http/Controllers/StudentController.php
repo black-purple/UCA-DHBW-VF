@@ -22,7 +22,7 @@ class StudentController extends Controller
             'date_birth' => 'required|date',
             'phone_number' => 'required|string|max:255',
             'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust file types and size as needed
-        ]);        
+        ]);
         $photo = $request->file('photo');
         $filename = time() . '_' . $photo->getClientOriginalName();
     	$photo->move(public_path('storage/students'), $filename);
@@ -97,7 +97,7 @@ class StudentController extends Controller
             ->where('university', $university)
             ->paginate(9);
         }
-        
+
 
         // Return a JSON response for AJAX requests
         if ($request->ajax()) {
@@ -108,4 +108,12 @@ class StudentController extends Controller
         // For non-AJAX requests, render the view as usual
         return view('front.exchange_students.students_profiles', compact('students', 'universities', 'filteredStudents', 'university'));
     }
+
+
+    public function getAllStudents()
+    {
+        $students = Student::all();
+        return response()->json(['students' => $students]);
+    }
+
 }

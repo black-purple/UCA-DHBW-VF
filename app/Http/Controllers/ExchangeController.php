@@ -27,6 +27,46 @@ class Exchangecontroller extends Controller
     // }
 
 
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'date_start' => 'required|date',
+    //         'date_end' => 'required|date',
+    //         'type' => 'required|string|max:255',
+    //         'description' => 'required|string',
+    //         'universite' => 'required|string',
+    //         'student_ids' => 'required|array', // Liste des IDs d'étudiants
+    //         'student_ids.*' => 'exists:students,id', // Vérifie l'existence des étudiants
+    //     ]);
+
+    //     // Création de l'Exchange
+    //     $exchange = Exchange::create([
+    //         'date_start' => $request->input('date_start'),
+    //         'date_end' => $request->input('date_end'),
+    //         'type' => $request->input('type'),
+    //         'description' => $request->input('description'),
+    //         'universite' => $request->input('universite')
+    //     ]);
+
+    //     // Préparer les données pour la table pivot
+    //     $studentIds = $request->input('student_ids');
+    //     $pivotData = [];
+    //     $timestamp = now();
+
+    //     foreach ($studentIds as $studentId) {
+    //         $pivotData[$studentId] = [
+    //             'created_at' => $timestamp,
+    //             'updated_at' => $timestamp,
+    //         ];
+    //     }
+
+    //     // Associer les étudiants à l'Exchange avec les timestamps
+    //     $exchange->students()->attach($pivotData);
+
+    //     return redirect()->back()->with('success', 'Exchange added successfully and students associated.');
+    // }
+
+
     public function store(Request $request)
     {
         $request->validate([
@@ -35,20 +75,18 @@ class Exchangecontroller extends Controller
             'type' => 'required|string|max:255',
             'description' => 'required|string',
             'universite' => 'required|string',
-            'student_ids' => 'required|array', // Liste des IDs d'étudiants
-            'student_ids.*' => 'exists:students,id', // Vérifie l'existence des étudiants
+            'student_ids' => 'required|array',
+            'student_ids.*' => 'exists:students,id',
         ]);
 
-        // Création de l'Exchange
         $exchange = Exchange::create([
             'date_start' => $request->input('date_start'),
             'date_end' => $request->input('date_end'),
             'type' => $request->input('type'),
             'description' => $request->input('description'),
-            'universite' => $request->input('universite')
+            'universite' => $request->input('universite'),
         ]);
 
-        // Préparer les données pour la table pivot
         $studentIds = $request->input('student_ids');
         $pivotData = [];
         $timestamp = now();
@@ -60,11 +98,11 @@ class Exchangecontroller extends Controller
             ];
         }
 
-        // Associer les étudiants à l'Exchange avec les timestamps
         $exchange->students()->attach($pivotData);
 
         return redirect()->back()->with('success', 'Exchange added successfully and students associated.');
     }
+
 
     public function destroy(Exchange $exchange)
     {

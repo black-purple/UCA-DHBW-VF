@@ -42,6 +42,10 @@ Route::get('/exchanges/filter/year', [ExchangeController::class, 'filterExchange
 
 
 
+Route::get('/students/all', [StudentController::class, 'getAllStudents'])->name('students.all');
+
+
+
 Route::get('/home-internships',[HomeController::class, 'internships']);
 
 Route::get('/workshop',[HomeController::class, 'workshop']);
