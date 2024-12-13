@@ -31,12 +31,16 @@ use App\Http\Controllers\HomeController;
 
 
 
-// Home Controller : Navigate in the Front Office 
+// Home Controller : Navigate in the Front Office
 
 Route::get('/',[HomeController::class, 'index']);
 Route::get('/exchange_students',[HomeController::class, 'exchange_students']);
 Route::get('/students_profiles',[HomeController::class, 'students_profiles']);
 Route::get('/faculty_staff_exchange',[HomeController::class, 'faculty_staff_exchange']);
+Route::get('/exchanges/filter/university', [ExchangeController::class, 'filterByUniversity']);
+Route::get('/exchanges/filter/year', [ExchangeController::class, 'filterExchangesByYear']);
+
+
 
 Route::get('/home-internships',[HomeController::class, 'internships']);
 
@@ -114,12 +118,12 @@ Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 Route::get('/login',[HomeController::class, 'login'])->name('login');
 Route::post('admin.login', [AdminController::class, 'authenticate'])->name('admin.login');
-    
+
 
 
 Route::group(['middleware' => 'admin.auth'], function () {
     Route::post('admin.logout', [AdminController::class, 'logout'])->name('admin.logout');
-    // Admin Controller : Navigate in the back Controller 
+    // Admin Controller : Navigate in the back Controller
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
     // Route::get('/exchanges', [AdminController::class, 'exchanges'])->name('exchanges');
     // Route::get('/workshops', [AdminController::class, 'workshops'])->name('workshops');
@@ -128,12 +132,12 @@ Route::group(['middleware' => 'admin.auth'], function () {
     // Route::get('/programs', [AdminController::class, 'programs'])->name('programs');
 
 
-    // Teacher Part 
+    // Teacher Part
     Route::get('/teachers', [AdminController::class, 'teachers'])->name('teachers');
     Route::delete('/teacher-deleteRoute/{teacher}', [TeacherController::class, 'destroy'])->name('teachers.destroy');
     Route::post('teachers.add', [TeacherController::class, 'store'])->name('teachers.add');
     Route::put('/teachers/update/{teacher}', [TeacherController::class, 'update'])->name('teachers.update');
-    // Student Part 
+    // Student Part
 
     Route::get('/students', [AdminController::class, 'students'])->name('students');
     Route::delete('/student-deleteRoute/{student}', [StudentController::class, 'destroy'])->name('students.destroy');
@@ -143,22 +147,22 @@ Route::group(['middleware' => 'admin.auth'], function () {
     Route::get('/affectInternship', [StudentController::class, 'affectInternship'])->name('affectInternship');
 
 
-    // Exchanges  
+    // Exchanges
     Route::get('/exchanges', [AdminController::class, 'exchanges'])->name('exchanges');
     Route::delete('/exchange-deleteRoute/{exchange}', [Exchangecontroller::class, 'destroy'])->name('exchanges.destroy');
     Route::post('exchanges.add', [Exchangecontroller::class, 'store'])->name('exchanges.add');
     Route::put('/exchanges/update/{exchange}', [ExchangeController::class, 'update'])->name('exchanges.update');
-    // workshops  
+    // workshops
     Route::get('/workshops', [AdminController::class, 'workshops'])->name('workshops');
     Route::delete('/workshops-deleteRoute/{workshop}', [Workshopcontroller::class, 'destroy'])->name('workshops.destroy');
     Route::post('workshops.add', [Workshopcontroller::class, 'store'])->name('workshops.add');
     Route::put('/workshops/update/{workshop}', [Workshopcontroller::class, 'update'])->name('workshops.update');
-    // Partners 
+    // Partners
     Route::get('/partner', [AdminController::class, 'partners'])->name('partners');
     Route::delete('/partners-deleteRoute/{partner}', [Partnercontroller::class, 'destroy'])->name('partners.destroy');
     Route::post('partners.add', [Partnercontroller::class, 'store'])->name('partners.add');
     Route::put('/partners/update/{partner}', [Partnercontroller::class, 'update'])->name('partners.update');
-    // Internships 
+    // Internships
     Route::get('/internships', [AdminController::class, 'internships'])->name('internships');
     Route::delete('/internships-deleteRoute/{internship}', [InternshipController::class, 'destroy'])->name('internships.destroy');
     Route::post('internships.add', [InternshipController::class, 'store'])->name('internships.add');
@@ -170,22 +174,22 @@ Route::group(['middleware' => 'admin.auth'], function () {
     Route::delete('/internships/removeSupervisor/{internship}/{supervisor}', [InternshipController::class, 'removeSupervisor'])->name('internships.removeSupervisor');
 
 
-    // Projects 
+    // Projects
     Route::get('/projects', [AdminController::class, 'projects'])->name('projects');
     Route::delete('/projects-deleteRoute/{project}', [Projectcontroller::class, 'destroy'])->name('projects.destroy');
     Route::post('projects.add', [Projectcontroller::class, 'store'])->name('projects.add');
     Route::put('/projects/update/{project}', [Projectcontroller::class, 'update'])->name('projects.update');
-    // fablabs 
+    // fablabs
     Route::get('/fablabs', [AdminController::class, 'fablabs'])->name('fablabs');
     Route::delete('/fablabs-deleteRoute/{fablab}', [FablabController::class, 'destroy'])->name('fablabs.destroy');
     Route::post('fablabs.add', [FablabController::class, 'store'])->name('fablabs.add');
     Route::put('/fablabs/update/{fablab}', [FablabController::class, 'update'])->name('fablabs.update');
-    // programs 
+    // programs
     Route::get('/programs', [AdminController::class, 'programs'])->name('programs');
     Route::delete('/programs-deleteRoute/{program}', [ProgramController::class, 'destroy'])->name('programs.destroy');
     Route::post('programs.add', [ProgramController::class, 'store'])->name('programs.add');
     Route::put('/programs/update/{program}', [ProgramController::class, 'update'])->name('programs.update');
-    // programs 
+    // programs
     // Route::get('/news', [AdminController::class, 'news'])->name('news');
     // Route::delete('/programs-deleteRoute/{program}', [ProgramController::class, 'destroy'])->name('programs.destroy');
     // Route::post('programs.add', [ProgramController::class, 'store'])->name('programs.add');

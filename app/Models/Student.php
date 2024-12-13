@@ -24,6 +24,11 @@ class Student extends Model
         return $this->belongsToMany(Internship::class);
     }
 
+    public function exchanges()
+    {
+        return $this->belongsToMany(Exchange::class);
+    }
+
     public function projects()
     {
         return $this->belongsToMany(Project::class);
