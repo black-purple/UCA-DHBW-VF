@@ -37,8 +37,13 @@ Route::get('/',[HomeController::class, 'index']);
 Route::get('/exchange_students',[HomeController::class, 'exchange_students']);
 Route::get('/students_profiles',[HomeController::class, 'students_profiles']);
 Route::get('/faculty_staff_exchange',[HomeController::class, 'faculty_staff_exchange']);
-Route::get('/exchanges/filter/university', [ExchangeController::class, 'filterByUniversity']);
-Route::get('/exchanges/filter/year', [ExchangeController::class, 'filterExchangesByYear']);
+
+
+Route::get('/exchanges/filter/university', [ExchangeController::class, 'filterByUniversity'])->name('filterByUniversity');
+Route::get('/exchange_students', [ExchangeController::class, 'filterExchangesByYear'])->name('exchange_students');
+// Route::get('/exchanges/filter/year', [ExchangeController::class, 'filterExchangesByYear'])->name('filterExchangesByYear');
+
+
 
 
 
