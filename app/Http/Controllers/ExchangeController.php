@@ -119,11 +119,11 @@ class Exchangecontroller extends Controller
             'description' => 'required|string',
             'universite' => 'required|string',
         ]);
-        $exchange->date_start=$request->input('date_start');
-        $exchange->date_end=$request->input('date_end');
-        $exchange->type=$request->input('type');
-        $exchange->description=$request->input('description');
-        $exchange->universite=$request->input('universite');
+        $exchange->date_start = $request->input('date_start');
+        $exchange->date_end = $request->input('date_end');
+        $exchange->type = $request->input('type');
+        $exchange->description = $request->input('description');
+        $exchange->universite = $request->input('universite');
         $exchange->save();
         return redirect()->back()->with('success', 'Exchange updated successfully');
     }
@@ -176,40 +176,43 @@ class Exchangecontroller extends Controller
     // }
 
     public function filterByUniversity(Request $request)
-{
-    $request->validate([
-        'university' => 'required|string', // Validate university input
-    ]);
+    {
+        $request->validate([
+            'universite' => 'required|string',
+        ]);
 
-    // Fetch exchanges for the specified university
-    $university = $request->input('university');
-    $exchanges = Exchange::where('universite', $university)->paginate(5);
-
-    return view('front.exchange_students.exchange_students', compact('exchanges', 'university'));
-}
-
-public function filterExchangesByYear(Request $request)
-{
-    $exchanges = Exchange::all();
-
-    $yearsStart = Exchange::selectRaw('YEAR(date_start) as year')->distinct()->pluck('year');
-    $yearsEnd = Exchange::selectRaw('YEAR(date_end) as year')->distinct()->pluck('year');
-
-    $years = $yearsStart->merge($yearsEnd)->unique()->sort();
-    $filteredExchanges = null;
-    $year = $request->input('year');
-    if ($year) {
-        $filteredInternships = Exchange::whereYear('date_start', $year)
-            ->orWhereYear('date_end', $year)
-            ->paginate(3);
+        // Fetch exchanges for the specified university
+        $universite = $request->input('universite');
+        $exchangesFiltered = Exchange::where('universite', $universite)->paginate(5);
+        if ($request->ajax()) {
+            $html = view('front.exchange_students.exchange_students', compact('exchangesFiltered', 'universite'))->render();
+            return response()->json(['html' => $html]);
+        }
+        return view('front.exchange_students.exchange_students', compact('exchangesFiltered', 'universite'));
     }
 
-    if ($request->ajax()) {
-        $html = view('front.exchange_students.exchange_students', compact('exchanges', 'years', 'filteredExchanges', 'year'))->render();
-        return response()->json(['html' => $html]);
+    public function filterExchangesByYear(Request $request)
+    {
+        $exchanges = Exchange::all();
+
+        $yearsStart = Exchange::selectRaw('YEAR(date_start) as year')->distinct()->pluck('year');
+        $yearsEnd = Exchange::selectRaw('YEAR(date_end) as year')->distinct()->pluck('year');
+
+        $years = $yearsStart->merge($yearsEnd)->unique()->sort();
+        $filteredExchanges = null;
+        $year = $request->input('year');
+        if ($year) {
+            $filteredExchanges = Exchange::whereYear('date_start', $year)
+                ->orWhereYear('date_end', $year)
+                ->paginate(3);
+        }
+        // dd($request->all(), $request->query(), $request->input('year'));
+        if ($request->ajax()) {
+            $html = view('front.exchange_students.exchange_students', compact('exchanges', 'years', 'filteredExchanges', 'year'))->render();
+            return response()->json(['html' => $html]);
+        }
+        return view('front.exchange_students.exchange_students', compact('exchanges', 'years', 'filteredExchanges', 'year'));
     }
-    return view('front.exchange_students.exchange_students', compact('exchanges', 'years', 'filteredExchanges', 'year'));
-}
 
 
     public function showExchangeForm($exchangeId)
@@ -219,7 +222,6 @@ public function filterExchangesByYear(Request $request)
         $selectedStudents = $exchange->students->pluck('id')->toArray();
 
         dd(compact('students', 'exchange', 'selectedStudents'));
-        return view('back.exchanges',compact('students','exchange','selectedStudents'));
+        return view('back.exchanges', compact('students', 'exchange', 'selectedStudents'));
     }
-
 }

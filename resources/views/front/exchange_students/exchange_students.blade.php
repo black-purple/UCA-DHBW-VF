@@ -80,25 +80,24 @@
                                 <select name="year" class="form-select">
                                     <option disabled selected>Year</option>
                                     @foreach ($years as $yearOption)
-                                        <option value="{{ $yearOption }}" {{ (isset($year) && $year == $yearOption) ? 'selected' : '' }}>
+                                        <option value="{{ $yearOption }}" {{ request()->input('year') == $yearOption ? 'selected' : '' }}>
                                             {{ $yearOption }}
                                         </option>
                                     @endforeach
                                 </select>
-
                             </div>
                             <div class="col-md-6">
                                 <select name="universite" class="form-select">
                                     <option disabled selected>University</option>
-                                    <option value="UCA" {{ (request()->input('universite') == 'UCA') ? 'selected' : '' }}>UCA</option>
-                                    <option value="DHBW" {{ (request()->input('universite') == 'DHBW') ? 'selected' : '' }}>DHBW</option>
+                                    <option value="UCA" {{ request()->input('universite') == 'UCA' ? 'selected' : '' }}>UCA</option>
+                                    <option value="DHBW" {{ request()->input('universite') == 'DHBW' ? 'selected' : '' }}>DHBW</option>
                                 </select>
-
                             </div>
                             <div class="col-12 text-center">
                                 <button type="submit" class="btn btn-primary px-4 py-2">Apply Filters</button>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -110,12 +109,12 @@
                     @if (isset($filteredExchanges) && $filteredExchanges->count() > 0)
                     <div class="col-12">
                         <center>
-                            <h2 class="fw-bold text-primary text-uppercase">Filtered Internships for {{ $year }}
+                            <h2 class="fw-bold text-primary text-uppercase">Filtered exchanges for {{ $year }}
                             </h2>
                         </center>
                         <div class="box_filter mt-3 text-center">
                             @if ($filteredExchanges->isEmpty())
-                                <p>No internships found for the selected year.</p>
+                                <p>No exchanges found for the selected year.</p>
                             @else
                                 <div class="workshops-container justify-content-center">
                                     @foreach ($filteredExchanges as $exchange)
@@ -134,20 +133,16 @@
                                                     class="far fa-calendar-alt text-primary me-2"></i>{{ date('M d, Y', strtotime($exchange->date_start)) }}
                                                 - {{ date('M d, Y', strtotime($exchange->date_end)) }}
                                                 <br>
-                                                <i class='fas fa-briefcase'
-                                                    style='color:#800000'></i>&nbsp;&nbsp;{{ $exchange->universite }}<br><br>
-                                                <h6 data-bs-toggle="collapse"
-                                                    data-bs-target="#workshopDescription{{ $exchange->id }}"
-                                                    aria-expanded="false"
-                                                    aria-controls="workshopDescription{{ $exchange->id }}"
-                                                    class="text-primary text-uppercase" style="cursor: pointer;">
-                                                    DESCRIPTION
-                                                </h6>
-                                                <div id="workshopDescription{{ $internship->id }}" class="collapse"
-                                                    style="text-align : justify; margin : 20px;">
-                                                    <!-- Content to be collapsed -->
-                                                    {{ $exchange->description }}
-                                                </div>
+                                                <i class='fas fa-university' style='color:#800000'></i>&nbsp;&nbsp;{{ $exchange->universite }}<br><br>
+                                             <p>
+                                                {{($exchange->description) }}
+                                            </p>
+
+                                            <!-- Buttons -->
+                                            <div class="d-flex justify-content-center gap-3 mt-3">
+                                                <a href=""  class="btn btn-primary px-4 py-2" >View More</a>
+                                                <a href=""  class="btn btn-primary px-4 py-2" >Download PDF</a>
+                                            </div>
                                             </div>
                                         </div>
                                     @endforeach
@@ -162,11 +157,7 @@
                 </div>
             </div>
         </div>
-
-
     </div>
-
-
 
     <!-- Footer Section -->
     @include('front.partials.footer')
