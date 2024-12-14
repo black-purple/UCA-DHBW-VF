@@ -42,7 +42,7 @@ Route::get('/faculty_staff_exchange',[HomeController::class, 'faculty_staff_exch
 Route::get('/exchange_students', [ExchangeController::class, 'filterExchangesByYear'])->name('exchange_students');
 Route::get('/exchange_students_univ', [ExchangeController::class, 'filterByUniversity'])->name('exchange_students');
 
-
+Route::get('/exchanges/{id}/download', [ExchangeController::class, 'downloadPDF'])->name('downloadPDF');
 
 
 
