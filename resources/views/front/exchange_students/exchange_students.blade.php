@@ -141,7 +141,7 @@
                                             <!-- Buttons -->
                                             <div class="d-flex justify-content-center gap-3 mt-3">
                                                 <a href=""  class="btn btn-primary px-4 py-2" >View More</a>
-                                                <a href=""  class="btn btn-primary px-4 py-2" >Download PDF</a>
+                                                <a href="{{ route('downloadPDF', $exchange->id) }}" class="btn btn-primary px-4 py-2">Download PDF</a>
                                             </div>
                                             </div>
                                         </div>
