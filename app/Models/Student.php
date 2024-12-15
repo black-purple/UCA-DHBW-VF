@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     use HasFactory;
+    protected $table = 'students';
 
     protected $fillable = [
         'firstname',
@@ -26,7 +27,9 @@ class Student extends Model
 
     public function exchanges()
     {
-        return $this->belongsToMany(Exchange::class);
+        // Use the custom pivot model (ExchangeStudent)
+        return $this->belongsToMany(Exchange::class)
+            ->using(ExchangeStudent::class); // Specify the pivot model
     }
 
     public function projects()

@@ -33,14 +33,17 @@ use App\Http\Controllers\HomeController;
 
 // Home Controller : Navigate in the Front Office
 
-Route::get('/',[HomeController::class, 'index']);
-Route::get('/exchange_students',[HomeController::class, 'exchange_students']);
-Route::get('/students_profiles',[HomeController::class, 'students_profiles']);
-Route::get('/faculty_staff_exchange',[HomeController::class, 'faculty_staff_exchange']);
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/exchange_students', [HomeController::class, 'exchange_students']);
+Route::get('/students_profiles', [HomeController::class, 'students_profiles']);
+Route::get('/faculty_staff_exchange', [HomeController::class, 'faculty_staff_exchange']);
 
 
 Route::get('/exchange_students', [ExchangeController::class, 'filterExchangesByYear'])->name('exchange_students');
 Route::get('/exchange_students_univ', [ExchangeController::class, 'filterByUniversity'])->name('exchange_students');
+Route::get('/exchange_students/ViewMore', [ExchangeController::class, 'viewMore'])->name('exchange_students.viewMore');
+Route::get('/all-exchanges', [ExchangeController::class, 'showAllExchangesWithStudents'])->name('allExchanges');
+
 
 
 
@@ -56,19 +59,19 @@ Route::get('/exchange_students_univ', [ExchangeController::class, 'filterByUnive
 
 
 Route::get('/students/all', [StudentController::class, 'getAllStudents'])->name('students.all');
+Route::get('/student/profile/{id}', [StudentController::class, 'showProfileFront'])->name('student.profileFront');
 
 
+Route::get('/home-internships', [HomeController::class, 'internships']);
 
-Route::get('/home-internships',[HomeController::class, 'internships']);
-
-Route::get('/workshop',[HomeController::class, 'workshop']);
-Route::get('/research_projects',[HomeController::class, 'research_projects']);
-Route::get('/program',[HomeController::class, 'program']);
-Route::get('/academic_programs',[HomeController::class, 'academic_programs']);
-Route::get('/cultural_programs',[HomeController::class, 'cultural_programs']);
-Route::get('/achievements',[HomeController::class, 'achievements']);
-Route::get('/partners',[HomeController::class, 'partners']);
-Route::get('/about',[HomeController::class, 'about']);
+Route::get('/workshop', [HomeController::class, 'workshop']);
+Route::get('/research_projects', [HomeController::class, 'research_projects']);
+Route::get('/program', [HomeController::class, 'program']);
+Route::get('/academic_programs', [HomeController::class, 'academic_programs']);
+Route::get('/cultural_programs', [HomeController::class, 'cultural_programs']);
+Route::get('/achievements', [HomeController::class, 'achievements']);
+Route::get('/partners', [HomeController::class, 'partners']);
+Route::get('/about', [HomeController::class, 'about']);
 // Route::get('/news',[HomeController::class, 'news']);
 
 //Internships Controller : Front Office
@@ -115,6 +118,7 @@ Route::get('/research_projects/{projects:slug}', [ProjectController::class, 'dis
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 
+//View More Controller : Front
 
 
 
@@ -133,7 +137,8 @@ Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 
 
-Route::get('/login',[HomeController::class, 'login'])->name('login');
+
+Route::get('/login', [HomeController::class, 'login'])->name('login');
 Route::post('admin.login', [AdminController::class, 'authenticate'])->name('admin.login');
 
 

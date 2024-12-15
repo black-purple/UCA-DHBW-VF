@@ -224,4 +224,43 @@ class Exchangecontroller extends Controller
         dd(compact('students', 'exchange', 'selectedStudents'));
         return view('back.exchanges', compact('students', 'exchange', 'selectedStudents'));
     }
+
+    public function viewMore(Request $request)
+    {
+        // Validate the exchangeId parameter
+        $request->validate([
+            'exchangeId' => 'required|integer|exists:exchanges,id',
+        ]);
+
+        // Get the exchangeId from the query string
+        $exchangeId = $request->query('exchangeId');
+
+        // Retrieve the exchange information using the ID
+        $exchange = Exchange::findOrFail($exchangeId);
+
+        // Retrieve the students associated with the exchange
+        $students = $exchange->students;  // This gets the related students via the many-to-many relationship
+
+        // Return a view with exchange and student information
+        return view('front.exchange_students.view_more', [
+            'exchange' => $exchange,
+            'students' => $students,  // Pass the students to the view
+        ]);
+    }
+
+
+    public function showAllExchangesWithStudents()
+    {
+        $exchanges = Exchange::with('students')->get();
+
+        return view('front.exchange_students.all_exchanges', compact('exchanges'));
+    }
+
+
+
+
+
+
+
+
 }

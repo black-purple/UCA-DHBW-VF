@@ -25,7 +25,7 @@ class StudentController extends Controller
         ]);
         $photo = $request->file('photo');
         $filename = time() . '_' . $photo->getClientOriginalName();
-    	$photo->move(public_path('storage/students'), $filename);
+        $photo->move(public_path('storage/students'), $filename);
         $student = new Student();
         $student->firstname = $request->input('firstname');
         $student->lastname = $request->input('lastname');
@@ -82,6 +82,20 @@ class StudentController extends Controller
         $student = Student::findOrFail($id);
         return view('back.student_profile', ['student' => $student]);
     }
+
+
+
+    public function showProfileFront($id)
+    {
+        // Find the student by ID, eager load internships, handle 404 if not found
+        $student = Student::with('internships')->findOrFail($id);
+
+        // Pass student and internship data to the view
+        return view('front.students.profile', compact('student'));
+    }
+
+
+
     public function filterStudents(Request $request)
     {
         // Get all students
@@ -94,8 +108,8 @@ class StudentController extends Controller
 
         if ($university) {
             $filteredStudents = Student::with('internships') // Eager loading
-            ->where('university', $university)
-            ->paginate(9);
+                ->where('university', $university)
+                ->paginate(9);
         }
 
 

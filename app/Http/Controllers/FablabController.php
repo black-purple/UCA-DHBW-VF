@@ -14,7 +14,7 @@ class FablabController extends Controller
             'description_fablab' => 'required|string',
             'image_fablab' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-    
+
         $fablab = new Fablab();
         $fablab->title = $validatedData['title_fablab'];
         $fablab->description = $validatedData['description_fablab'];
@@ -27,10 +27,10 @@ class FablabController extends Controller
             $fablab->image = $filename;
         }
         $fablab->save();
-        
+
         return redirect()->back()->with('success', 'Fablab added successfully');
     }
-    
+
     public function destroy(Fablab $fablab)
     {
         if ($fablab->image) {
@@ -52,7 +52,7 @@ class FablabController extends Controller
             'description_fablab' => 'required|string',
             'image_fablab' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-    
+
         $fablab->title = $validatedData['title_fablab'];
         $fablab->description = $validatedData['description_fablab'];
         $fablab->slug = Str::slug($fablab->title);
@@ -65,16 +65,16 @@ class FablabController extends Controller
                     unlink($oldImagePath);
                 }
             }
-    
+
             // Upload new image
             $imageFablab = $request->file('image_fablab');
             $filename = time() . '_' . $imageFablab->getClientOriginalName();
             $imageFablab->storeAs('public/fablabs/', $filename);
             $fablab->image = $filename;
         }
-    
+
         $fablab->save();
-    
+
         return redirect()->back()->with('success', 'Fablab updated successfully');
     }
     public function showFablabs(Request $request)

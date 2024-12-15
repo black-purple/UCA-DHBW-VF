@@ -89,8 +89,10 @@
                             <div class="col-md-6">
                                 <select name="universite" class="form-select">
                                     <option disabled selected>University</option>
-                                    <option value="UCA" {{ request()->input('universite') == 'UCA' ? 'selected' : '' }}>UCA</option>
-                                    <option value="DHBW" {{ request()->input('universite') == 'DHBW' ? 'selected' : '' }}>DHBW</option>
+                                    <option value="UCA" {{ request()->input('universite') == 'UCA' ? 'selected' : '' }}>
+                                        UCA</option>
+                                    <option value="DHBW" {{ request()->input('universite') == 'DHBW' ? 'selected' : '' }}>
+                                        DHBW</option>
                                 </select>
                             </div>
                             <div class="col-12 text-center">
@@ -107,52 +109,54 @@
             <div class="container py-5">
                 <div class="row g-5">
                     @if (isset($filteredExchanges) && $filteredExchanges->count() > 0)
-                    <div class="col-12">
-                        <center>
-                            <h2 class="fw-bold text-primary text-uppercase">Filtered exchanges for {{ $year }}
-                            </h2>
-                        </center>
-                        <div class="box_filter mt-3 text-center">
-                            @if ($filteredExchanges->isEmpty())
-                                <p>No exchanges found for the selected year.</p>
-                            @else
-                                <div class="workshops-container justify-content-center">
-                                    @foreach ($filteredExchanges as $exchange)
-                                        <div class="workshop-item border p-3 mb-3 mx-2 d-flex flex-column flex-md-row">
-                                            <div class="col-lg-5 order-md-2">
-                                                <div class="position-relative h-100">
-                                                    <img class="w-100 h-100 rounded wow zoomIn img-fluid"
-                                                        data-wow-delay="0.9s" src="{{ asset('img/IMG_0357.JPG') }}"
-                                                        style="object-fit: contain;">
+                        <div class="col-12">
+                            <center>
+                                <h2 class="fw-bold text-primary text-uppercase">Filtered exchanges for {{ $year }}
+                                </h2>
+                            </center>
+                            <div class="box_filter mt-3 text-center">
+                                @if ($filteredExchanges->isEmpty())
+                                    <p>No exchanges found for the selected year.</p>
+                                @else
+                                    <div class="workshops-container justify-content-center">
+                                        @foreach ($filteredExchanges as $exchange)
+                                            <div class="workshop-item border p-3 mb-3 mx-2 d-flex flex-column flex-md-row">
+                                                <div class="col-lg-5 order-md-2">
+                                                    <div class="position-relative h-100">
+                                                        <img class="w-100 h-100 rounded wow zoomIn img-fluid ms-md-3 mb-3"
+                                                            data-wow-delay="0.9s" src="{{ asset('img/IMG_0357.JPG') }}"
+                                                            style="object-fit: contain;">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-7 order-md-1">
+                                                    <h3>{{ $exchange->type }}</h3>
+                                                    <br>
+                                                    <i
+                                                        class="far fa-calendar-alt text-primary me-2"></i>{{ date('M d, Y', strtotime($exchange->date_start)) }}
+                                                    - {{ date('M d, Y', strtotime($exchange->date_end)) }}
+                                                    <br>
+                                                    <i class='fas fa-university'
+                                                        style='color:#800000'></i>&nbsp;&nbsp;{{ $exchange->universite }}<br><br>
+                                                    <p>
+                                                        {{($exchange->description) }}
+                                                    </p>
+
+                                                    <!-- Buttons -->
+                                                    <div class="d-flex justify-content-center gap-3 mt-3">
+                                                        <a href="/exchange_students/ViewMore?exchangeId={{ $exchange->id }}"
+                                                            class="btn btn-primary px-4 py-2">View More</a>
+                                                        <a href="" class="btn btn-primary px-4 py-2">Download PDF</a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-7 order-md-1">
-                                                <h3>{{ $exchange->type }}</h3>
-                                                <br>
-                                                <i
-                                                    class="far fa-calendar-alt text-primary me-2"></i>{{ date('M d, Y', strtotime($exchange->date_start)) }}
-                                                - {{ date('M d, Y', strtotime($exchange->date_end)) }}
-                                                <br>
-                                                <i class='fas fa-university' style='color:#800000'></i>&nbsp;&nbsp;{{ $exchange->universite }}<br><br>
-                                             <p>
-                                                {{($exchange->description) }}
-                                            </p>
-
-                                            <!-- Buttons -->
-                                            <div class="d-flex justify-content-center gap-3 mt-3">
-                                                <a href=""  class="btn btn-primary px-4 py-2" >View More</a>
-                                                <a href=""  class="btn btn-primary px-4 py-2" >Download PDF</a>
-                                            </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @endif
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
                         </div>
-                    </div>
-                    <div class="pagination">
-                        {{ $filteredExchanges->appends(['year' => $year])->links('pagination::bootstrap-5') }}
-                    </div>
+                        <div class="pagination">
+                            {{ $filteredExchanges->appends(['year' => $year])->links('pagination::bootstrap-5') }}
+                        </div>
                     @endif
                 </div>
             </div>
@@ -163,8 +167,7 @@
     @include('front.partials.footer')
 
     <!-- Back to Top Button-->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded back-to-top"><i
-            class="bi bi-arrow-up"></i></a>
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded back-to-top"><i class="bi bi-arrow-up"></i></a>
 
     <!-- Include scripts -->
     @include('front.partials.scripts')
