@@ -45,7 +45,7 @@ Route::get('/exchange_students/ViewMore', [ExchangeController::class, 'viewMore'
 Route::get('/all-exchanges', [ExchangeController::class, 'showAllExchangesWithStudents'])->name('allExchanges');
 
 
-
+Route::get('/exchanges/{id}/download', [ExchangeController::class, 'downloadPDF'])->name('downloadPDF');
 
 
 
