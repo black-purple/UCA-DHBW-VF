@@ -95,7 +95,7 @@
                                         <div class="flex-grow-1">
                                             <h6 class="mb-1">{{ $student->firstname }} {{ $student->lastname }}</h6>
                                             <small class="text-muted"><strong>Nationality:</strong>
-                                                {{ $student->nationality }}</small><br>
+                                                {{ $student->nationnality }}</small><br>
                                             <small class="text-muted"><strong>University:</strong>
                                                 {{ $student->university }}</small><br>
                                         </div>

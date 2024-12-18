@@ -75,30 +75,40 @@
                     <h5 class="fw-bold text-primary text-uppercase mb-4 text-center">Refine your Search</h5>
                     <div class="box">
                         <!-- Filter Form -->
-                        <form id="filter-form" method="GET" action="{{ route('exchange_students') }}" class="row g-3">
+                        <form id="filter-form-year" method="GET" action="{{ route('filter_by_year') }}"
+                            class="row g-3">
                             <div class="col-md-6">
                                 <select name="year" class="form-select">
                                     <option disabled selected>Year</option>
-                                    @foreach ($years as $yearOption)
-                                        <option value="{{ $yearOption }}" {{ request()->input('year') == $yearOption ? 'selected' : '' }}>
-                                            {{ $yearOption }}
-                                        </option>
-                                    @endforeach
+                                    @if (!empty($years))
+                                        @foreach ($years as $yearOption)
+                                            <option value="{{ $yearOption }}">{{ $yearOption }}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
+                            <div class="col-md-6 text-center">
+                                <button type="submit" class="btn btn-primary px-4 py-2">Filter by Year</button>
+                            </div>
+                        </form>
+
+
+                        <form id="filter-form-university" method="GET" action="{{ route('filter_by_university') }}"
+                            class="row g-3 mt-4">
+                            <!-- Champ pour l'université -->
                             <div class="col-md-6">
                                 <select name="universite" class="form-select">
                                     <option disabled selected>University</option>
-                                    <option value="UCA" {{ request()->input('universite') == 'UCA' ? 'selected' : '' }}>
-                                        UCA</option>
-                                    <option value="DHBW" {{ request()->input('universite') == 'DHBW' ? 'selected' : '' }}>
-                                        DHBW</option>
+                                    <option value="UCA">UCA</option>
+                                    <option value="DHBW">DHBW</option>
                                 </select>
                             </div>
-                            <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-primary px-4 py-2">Apply Filters</button>
+                            <div class="col-md-6 text-center">
+                                <button type="submit" class="btn btn-primary px-4 py-2">Filter by University</button>
                             </div>
                         </form>
+
+
 
                     </div>
                 </div>
@@ -111,7 +121,14 @@
                     @if (isset($filteredExchanges) && $filteredExchanges->count() > 0)
                         <div class="col-12">
                             <center>
-                                <h2 class="fw-bold text-primary text-uppercase">Filtered exchanges for {{ $year }}
+                                <h2 class="fw-bold text-primary text-uppercase"> Filtered exchanges
+                                    @if (isset($year) && $year)
+                                    <h2 class="fw-bold text-primary text-uppercase">Filtered exchanges for {{ $year }}</h2>
+                                @endif
+
+                                    @if (!$year)
+                                        Filtered exchanges by University
+                                    @endif
                                 </h2>
                             </center>
                             <div class="box_filter mt-3 text-center">
@@ -120,7 +137,8 @@
                                 @else
                                     <div class="workshops-container justify-content-center">
                                         @foreach ($filteredExchanges as $exchange)
-                                            <div class="workshop-item border p-3 mb-3 mx-2 d-flex flex-column flex-md-row">
+                                            <div
+                                                class="workshop-item border p-3 mb-3 mx-2 d-flex flex-column flex-md-row">
                                                 <div class="col-lg-5 order-md-2">
                                                     <div class="position-relative h-100">
                                                         <img class="w-100 h-100 rounded wow zoomIn img-fluid ms-md-3 mb-3"
@@ -138,7 +156,7 @@
                                                     <i class='fas fa-university'
                                                         style='color:#800000'></i>&nbsp;&nbsp;{{ $exchange->universite }}<br><br>
                                                     <p>
-                                                        {{($exchange->description) }}
+                                                        {{ $exchange->description }}
                                                     </p>
 
                                                     <!-- Buttons -->
@@ -169,7 +187,8 @@
     @include('front.partials.footer')
 
     <!-- Back to Top Button-->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded back-to-top"><i class="bi bi-arrow-up"></i></a>
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded back-to-top"><i
+            class="bi bi-arrow-up"></i></a>
 
     <!-- Include scripts -->
     @include('front.partials.scripts')

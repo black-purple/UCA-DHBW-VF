@@ -40,7 +40,9 @@ Route::get('/faculty_staff_exchange', [HomeController::class, 'faculty_staff_exc
 
 
 Route::get('/exchange_students', [ExchangeController::class, 'filterExchangesByYear'])->name('exchange_students');
-Route::get('/exchange_students_univ', [ExchangeController::class, 'filterByUniversity'])->name('exchange_students');
+Route::get('/exchange_students/year', [ExchangeController::class, 'filterByYearOnly'])->name('filter_by_year');
+Route::get('/exchange_students/university', [ExchangeController::class, 'filterByUniversityOnly'])->name('filter_by_university');
+
 Route::get('/exchange_students/ViewMore', [ExchangeController::class, 'viewMore'])->name('exchange_students.viewMore');
 Route::get('/all-exchanges', [ExchangeController::class, 'showAllExchangesWithStudents'])->name('allExchanges');
 

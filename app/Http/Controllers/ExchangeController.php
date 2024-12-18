@@ -6,7 +6,7 @@ use App\Models\Exchange;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Student;
-use Barryvdh\DomPDF\Facade\Pdf; 
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class Exchangecontroller extends Controller
 {
@@ -67,21 +67,21 @@ class Exchangecontroller extends Controller
         $exchange->save();
         return redirect()->back()->with('success', 'Exchange updated successfully');
     }
-    public function filterByUniversity(Request $request)
-    {
-        $request->validate([
-            'universite' => 'required|string',
-        ]);
+    // public function filterByUniversity(Request $request)
+    // {
+    //     $request->validate([
+    //         'universite' => 'required|string',
+    //     ]);
 
-        // Fetch exchanges for the specified university
-        $universite = $request->input('universite');
-        $exchangesFiltered = Exchange::where('universite', $universite)->paginate(5);
-        if ($request->ajax()) {
-            $html = view('front.exchange_students.exchange_students', compact('exchangesFiltered', 'universite'))->render();
-            return response()->json(['html' => $html]);
-        }
-        return view('front.exchange_students.exchange_students', compact('exchangesFiltered', 'universite'));
-    }
+    //     // Fetch exchanges for the specified university
+    //     $universite = $request->input('universite');
+    //     $exchangesFiltered = Exchange::where('universite', $universite)->paginate(5);
+    //     if ($request->ajax()) {
+    //         $html = view('front.exchange_students.exchange_students', compact('exchangesFiltered', 'universite'))->render();
+    //         return response()->json(['html' => $html]);
+    //     }
+    //     return view('front.exchange_students.exchange_students', compact('exchangesFiltered', 'universite'));
+    // }
 
     public function filterExchangesByYear(Request $request)
     {
@@ -156,6 +156,56 @@ class Exchangecontroller extends Controller
         $exchanges = Exchange::with('students')->get();
 
         return view('front.exchange_students.all_exchanges', compact('exchanges'));
+    }
+
+    public function filterByUniversityOnly(Request $request)
+    {
+        $request->validate([
+            'universite' => 'required|string',
+        ]);
+
+        $universite = $request->input('universite');
+
+        // Récupération des échanges filtrés uniquement par université
+        $filteredExchanges = Exchange::where('universite', $universite)->paginate(5);
+
+        // Récupération des années pour maintenir la liste dans le formulaire
+        $yearsStart = Exchange::selectRaw('YEAR(date_start) as year')->distinct()->pluck('year');
+        $yearsEnd = Exchange::selectRaw('YEAR(date_end) as year')->distinct()->pluck('year');
+        $years = $yearsStart->merge($yearsEnd)->unique()->sort();
+
+        // Pas d'année spécifique filtrée ici
+        $year = null;
+
+        return view('front.exchange_students.exchange_students', compact('filteredExchanges', 'years', 'year'));
+    }
+
+
+
+
+
+
+
+
+    public function filterByYearOnly(Request $request)
+    {
+        $request->validate([
+            'year' => 'required|integer',
+        ]);
+
+        $year = $request->input('year');
+
+        // Récupération des échanges filtrés uniquement par année
+        $filteredExchanges = Exchange::whereYear('date_start', $year)
+            ->orWhereYear('date_end', $year)
+            ->paginate(5);
+
+        // Récupération des années pour le filtre
+        $yearsStart = Exchange::selectRaw('YEAR(date_start) as year')->distinct()->pluck('year');
+        $yearsEnd = Exchange::selectRaw('YEAR(date_end) as year')->distinct()->pluck('year');
+        $years = $yearsStart->merge($yearsEnd)->unique()->sort();
+
+        return view('front.exchange_students.exchange_students', compact('filteredExchanges', 'years', 'year'));
     }
 
 
